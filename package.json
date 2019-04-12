@@ -13,6 +13,7 @@
         "axios-mock-adapter": "1.16.0",
         "babel-polyfill": "7.0.0-beta.3",
         "chart.js": "2.7.3",
+        "core-js": "3",
         "date-fns": "2.0.0-alpha.27",
         "downshift": "3.2.6",
         "express": "^4.16.4",
@@ -20,6 +21,7 @@
         "formsy-react": "1.1.5",
         "google-map-react": "1.1.2",
         "jsonwebtoken": "8.5.0",
+        "jss": "^9.7.0",
         "jss-extend": "6.2.0",
         "jwt-decode": "2.2.0",
         "keycode": "2.2.0",
@@ -35,6 +37,7 @@
         "path-to-regexp": "3.0.0",
         "perfect-scrollbar": "1.4.0",
         "prismjs": "1.15.0",
+        "prop-types": "^15.6.0",
         "qs": "6.6.0",
         "raw-loader": "1.0.0",
         "react": "16.8.5",
@@ -51,6 +54,7 @@
         "react-number-format": "4.0.6",
         "react-popper": "1.0.2",
         "react-redux": "6.0.1",
+        "react-router": "^5.0.0",
         "react-router-config": "5.0.0",
         "react-router-dom": "5.0.0",
         "react-scripts": "2.1.5",
@@ -63,7 +67,8 @@
         "redux-thunk": "2.3.0",
         "typeface-muli": "0.0.71",
         "typescript": "^3.3.4000",
-        "velocity-react": "1.4.1"
+        "velocity-react": "1.4.1",
+        "webpack": "4.28.3"
     },
     "resolutions": {
         "react": "16.8.5",
