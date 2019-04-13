@@ -442,14 +442,14 @@ const academyDB = {
     courses   : [
         {
             'id'         : '15459251a6d6b397565',
-            'title'      : 'Basics of Angular',
+            'title'      : 'SQL Injection',
             'slug'       : 'basics-of-angular',
-            'description': 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'description': 'Setting up a plan for SQL Injection Prevention',
             'category'   : 'web',
-            'length'     : 30,
+            'length'     : 120,
             'totalSteps' : 11,
             'activeStep' : 0,
-            'updated'    : 'Jun 28, 2017',
+            'updated'    : 'Apr 12, 2019',
             'steps'      : demoSteps
         },
         {

@@ -4,8 +4,8 @@ import {FuseSearch, FuseShortcuts} from '@fuse';
 import connect from 'react-redux/es/connect/connect';
 import {withRouter} from 'react-router-dom';
 import NavbarMobileToggleButton from 'app/fuse-layouts/shared-components/NavbarMobileToggleButton';
-import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPanel/QuickPanelToggleButton';
-import ChatPanelToggleButton from 'app/fuse-layouts/shared-components/chatPanel/ChatPanelToggleButton';
+// import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPanel/QuickPanelToggleButton';
+// import ChatPanelToggleButton from 'app/fuse-layouts/shared-components/chatPanel/ChatPanelToggleButton';
 import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
 
 const styles = theme => ({
@@ -46,16 +46,16 @@ const ToolbarLayout1 = ({classes, settings, toolbarTheme}) => {
 
                         <FuseSearch/>
 
-                        <Hidden lgUp>
+                        {/* <Hidden lgUp>
 
                             <div className={classes.separator}/>
 
                             <ChatPanelToggleButton/>
-                        </Hidden>
+                        </Hidden> */}
 
                         <div className={classes.separator}/>
 
-                        <QuickPanelToggleButton/>
+                        {/* <QuickPanelToggleButton/> */}
                     </div>
 
                     {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (

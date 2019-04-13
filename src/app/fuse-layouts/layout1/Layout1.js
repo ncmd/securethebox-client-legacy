@@ -5,11 +5,11 @@ import {withStyles} from '@material-ui/core';
 import {FuseScrollbars, FuseMessage, FuseDialog} from '@fuse';
 import {connect} from 'react-redux';
 import ToolbarLayout1 from './components/ToolbarLayout1';
-import FooterLayout1 from './components/FooterLayout1';
+// import FooterLayout1 from './components/FooterLayout1';
 import LeftSideLayout1 from './components/LeftSideLayout1';
-import RightSideLayout1 from './components/RightSideLayout1';
+// import RightSideLayout1 from './components/RightSideLayout1';
 import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1';
-import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
+// import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import classNames from 'classnames';
 import AppContext from 'app/AppContext';
 
@@ -117,11 +117,11 @@ const Layout1 = ({classes, settings, children}) => {
                                                 {children}
                                             </div>
 
-                                            {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && (
+                                            {/* {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && (
                                                 <FooterLayout1/>
-                                            )}
+                                            )} */}
 
-                                            <SettingsPanel/>
+                                            {/* <SettingsPanel/> */}
 
                                         </div>
 
@@ -130,21 +130,21 @@ const Layout1 = ({classes, settings, children}) => {
                                         )}
                                     </div>
 
-                                    {layoutConfig.footer.display && layoutConfig.footer.style !== 'fixed' && layoutConfig.footer.position === 'above' && (
+                                    {/* {layoutConfig.footer.display && layoutConfig.footer.style !== 'fixed' && layoutConfig.footer.position === 'above' && (
                                         <FooterLayout1/>
-                                    )}
+                                    )} */}
 
                                 </FuseScrollbars>
 
-                                {layoutConfig.footer.display && layoutConfig.footer.style === 'fixed' && layoutConfig.footer.position === 'above' && (
+                                {/* {layoutConfig.footer.display && layoutConfig.footer.style === 'fixed' && layoutConfig.footer.position === 'above' && (
                                     <FooterLayout1/>
-                                )}
+                                )} */}
 
                             </div>
 
-                            {layoutConfig.rightSidePanel.display && (
+                            {/* {layoutConfig.rightSidePanel.display && (
                                 <RightSideLayout1/>
-                            )}
+                            )} */}
 
                             <FuseMessage/>
 
@@ -191,16 +191,16 @@ const Layout1 = ({classes, settings, children}) => {
                                             {renderRoutes(routes)}
                                             {children}
 
-                                            {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && layoutConfig.footer.style !== 'fixed' && (
+                                            {/* {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && layoutConfig.footer.style !== 'fixed' && (
                                                 <FooterLayout1/>
-                                            )}
+                                            )} */}
                                         </FuseScrollbars>
 
-                                        {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && layoutConfig.footer.style === 'fixed' && (
+                                        {/* {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && layoutConfig.footer.style === 'fixed' && (
                                             <FooterLayout1/>
-                                        )}
+                                        )} */}
 
-                                        <SettingsPanel/>
+                                        {/* <SettingsPanel/> */}
 
                                     </div>
 
@@ -209,14 +209,14 @@ const Layout1 = ({classes, settings, children}) => {
                                     )}
                                 </div>
 
-                                {layoutConfig.footer.display && layoutConfig.footer.position === 'above' && (
+                                {/* {layoutConfig.footer.display && layoutConfig.footer.position === 'above' && (
                                     <FooterLayout1/>
-                                )}
+                                )} */}
                             </div>
 
-                            {layoutConfig.rightSidePanel.display && (
+                            {/* {layoutConfig.rightSidePanel.display && (
                                 <RightSideLayout1/>
-                            )}
+                            )} */}
 
                             <FuseMessage/>
                         </div>
