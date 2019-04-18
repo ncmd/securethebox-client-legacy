@@ -442,7 +442,7 @@ const academyDB = {
     courses   : [
         {
             'id'         : '15459251a6d6b397565',
-            'title'      : 'SQL Injection',
+            'title'      : 'SQL Injection (MYSQL)',
             'slug'       : 'basics-of-angular',
             'description': 'Setting up a plan for SQL Injection Prevention',
             'category'   : 'web',
@@ -454,14 +454,14 @@ const academyDB = {
         },
         {
             'id'         : '154588a0864d2881124',
-            'title'      : 'Basics of TypeScript',
+            'title'      : 'Cross-Site Scripting',
             'slug'       : 'basics-of-typeScript',
             'description': 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             'category'   : 'web',
             'length'     : 60,
             'totalSteps' : 11,
             'activeStep' : 3,
-            'updated'    : 'Nov 01, 2017',
+            'updated'    : 'April 13, 2019',
             'steps'      : demoSteps
         },
         {
