@@ -96,7 +96,10 @@
         "build-docs": "babel-node src/app/main/components/material-ui/build.js",
         "build-stats": "yarn run build --stats",
         "bundle-report": "yarn run build-stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
-        "commit": "git add . && git commit -m \"Deploy\" && git push"
+        "commit": "git add . && git commit -m \"Deploy\" && git push",
+        "deploy-frontend": "run-s deploy-frontend1 deploy-frontend2",
+        "deploy-frontend1": "echo 'npm run build' ; npm run build",
+        "deploy-frontend2": "echo 'firebase use ncmd-stb-prod firebase deploy' ; firebase use prod && firebase deploy"
     },
     "eslintConfig": {
         "extends": "react-app"

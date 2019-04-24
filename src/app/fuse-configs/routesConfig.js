@@ -11,6 +11,7 @@ import {LoginConfig} from 'app/main/login/LoginConfig';
 import {RegisterConfig} from 'app/main/register/RegisterConfig';
 import {LogoutConfig} from 'app/main/logout/LogoutConfig';
 import {CallbackConfig} from 'app/main/callback/CallbackConfig';
+import {LandingConfig} from 'app/main/landing/LandingConfig';
 
 const routeConfigs = [
     ...appsConfigs,
@@ -22,7 +23,8 @@ const routeConfigs = [
     LoginConfig,
     RegisterConfig,
     LogoutConfig,
-    CallbackConfig
+    CallbackConfig,
+    LandingConfig
 ];
 
 const routes = [
@@ -30,7 +32,7 @@ const routes = [
     {
         path     : '/',
         exact    : true,
-        component: () => <Redirect to="/apps/academy/courses"/>
+        component: () => <Redirect to="/"/>
     },
     {
         component: () => <Redirect to="/pages/errors/error-404"/>
