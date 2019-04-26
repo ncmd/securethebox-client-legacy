@@ -24,7 +24,7 @@ export const LandingConfig = {
     },
     routes  : [
         {
-            path     : '/',
+            path     : '/landing',
             component: Landing
         }
     ]

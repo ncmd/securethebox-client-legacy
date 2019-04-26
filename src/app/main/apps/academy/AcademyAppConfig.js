@@ -20,7 +20,7 @@ export const AcademyAppConfig = {
             })
         },
         {
-            path     : '/apps/academy',
+            path     : '/academy',
             component: () => <Redirect to="/apps/academy/courses"/>
         }
     ]
