@@ -4,7 +4,25 @@ import {Redirect} from 'react-router-dom';
 
 export const AcademyAppConfig = {
     settings: {
-        layout: {}
+        layout: {
+            config: {
+                navbar        : {
+                    display: false
+                },
+                toolbar       : {
+                    display: false
+                },
+                footer        : {
+                    display: false
+                },
+                leftSidePanel : {
+                    display: false
+                },
+                rightSidePanel: {
+                    display: false
+                }
+            }
+        }
     },
     routes  : [
         {
@@ -20,7 +38,7 @@ export const AcademyAppConfig = {
             })
         },
         {
-            path     : '/academy',
+            path     : '/',
             component: () => <Redirect to="/apps/academy/courses"/>
         }
     ]

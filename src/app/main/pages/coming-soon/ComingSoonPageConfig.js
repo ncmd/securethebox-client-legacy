@@ -24,7 +24,7 @@ export const ComingSoonPageConfig = {
     },
     routes  : [
         {
-            path     : '/',
+            path     : '/pages/coming-soon',
             component: FuseLoadable({
                 loader: () => import('./ComingSoonPage')
             })

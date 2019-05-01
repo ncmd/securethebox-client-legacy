@@ -1,4 +1,4 @@
-import mock from './../mock';
+import mock from '../mock';
 import _ from '@lodash';
 import {amber, blue, blueGrey, green} from '@material-ui/core/colors';
 
@@ -6,15 +6,41 @@ const demoSteps = [
     {
         'id'     : '0',
         'title'  : 'Introduction',
-        'content': '<h1>Problem 1</h1>' +
+        'content': '<h1>Step 1 - Introduction</h1>' +
             '<br>' +
-            'You are beginning to receive alerts from your WAF (modsecurity & splunk) of a Injection attack.' +
-            '<br/> <a href="http://splunk-oppa.us-west1-a.securethebox.us" target="_blank">Splunk - http://splunk-oppa.us-west1-a.securethebox.us</a>'+
-            '<br/> <a href="http://nginx-modsecurity-oppa.us-west1-a.securethebox.us" target="_blank">Web Application Firewall - http://nginx-modsecurity-oppa.us-west1-a.securethebox.us</a>'+
-            '<br/> <a href="http://app-oppa.us-west1-a.securethebox.us" target="_blank">Vulnerable App - http://app-oppa.us-west1-a.securethebox.us</a>'+
-            '<br/> <a href="http://wireshark-oppa.us-west1-a.securethebox.us" target="_blank">Wireshark - http://wireshark-oppa.us-west1-a.securethebox.us</a>'+
+            'This is an example step of the course. You can put anything in here from example codes to videos.' +
             '<br><br>' +
-            'Submit the IP Addresses of clients making these attacks' +
+            'To install the CLI you need to have installed <b>npm</b> which typically comes with <b>NodeJS</b>.' +
+            'To install or upgrade the CLI run the following <b>npm</b> command:' +
+            '<br><br>' +
+            '<code>npm -g install @angular/cli</code>' +
+            '<br><br>' +
+            'To verify that the CLI has been installed correctly, open a console and run:' +
+            '<br><br>' +
+            '<code>ng version</code>' +
+            '<br><br>' +
+            '<h2>Install dependencies</h2>' +
+            '<br>' +
+            'To moderate the images we\'ll need a few Node.js packages:' +
+            '<br><br>' +
+            '<ul>' +
+            '<li>' +
+            'The Google Cloud Vision Client Library for Node.js: @google-cloud/vision to run the image through the Cloud Vision API to detect inappropriate images.' +
+            '</li>' +
+            '<br>' +
+            '<li>' +
+            'The Google Cloud Storage Client Library for Node.js: @google-cloud/storage to download and upload the images from Cloud Storage.' +
+            '</li>' +
+            '<br>' +
+            '<li>' +
+            'A Node.js library allowing us to run processes: child-process-promise to run ImageMagick since the ImageMagick command-line tool comes pre-installed on all Functions instances.' +
+            '</li>' +
+            '</ul>' +
+            '<br>' +
+            'To install these three packages into your Cloud Functions app, run the following npm install --save command. Make sure that you do this from the functions directory.' +
+            '<br><br>' +
+            '<code>npm install --save @google-cloud/vision @google-cloud/storage child-process-promise</code>' +
+            '<br><br>' +
             'This will install the three packages locally and add them as declared dependencies in your package.js file.'
     },
     {

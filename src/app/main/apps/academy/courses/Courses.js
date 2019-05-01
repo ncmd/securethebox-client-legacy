@@ -25,6 +25,9 @@ import _ from '@lodash';
 import {Link} from 'react-router-dom';
 import * as Actions from '../store/actions';
 import reducer from '../store/reducers';
+import {
+    manageChallenge
+} from '../../../../store/actions/securethebox'
 
 const styles = theme => ({
     header    : {
@@ -107,14 +110,14 @@ class Courses extends Component {
 
                     <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
                         <Typography color="inherit" className="text-24 sm:text-40 font-light">
-                            SECURETHEBOX ACADEMY
+                            SECURE THE BOX Challenges
                         </Typography>
                     </FuseAnimate>
 
                     <FuseAnimate duration={400} delay={600}>
                         <Typography variant="subtitle1" color="inherit" className="mt-8 sm:mt-16 mx-auto max-w-512">
                             <span className="opacity-75">
-                                Our courses will train you and sharpen your skills to respond to real-world web application attacks.
+                                Challenge candidates on "hard skills" to prove their experience with simulated real-world web application attacks.
                             </span>
                         </Typography>
                     </FuseAnimate>
@@ -201,6 +204,16 @@ class Courses extends Component {
                                         </CardContent>
                                         <Divider/>
                                         <CardActions className="justify-center">
+                                        <Button
+                                            onClick={this.props.manageChallenge('us-west1-a','oppa','apply')}
+                                        >
+                                            Start Challenge
+                                        </Button>
+                                        <Button
+                                            onClick={this.props.manageChallenge('us-west1-a','oppa','delete')}
+                                        >
+                                            End Challenge
+                                        </Button>
                                             <Button
                                                 to={`/apps/academy/courses/${course.id}/${course.slug}`}
                                                 component={Link}
@@ -241,6 +254,7 @@ function mapDispatchToProps(dispatch)
 function mapStateToProps({academyApp})
 {
     return {
+        manageChallenge,
         courses       : academyApp.courses.data,
         searchText    : academyApp.courses.searchText,
         categories    : academyApp.courses.categories,
