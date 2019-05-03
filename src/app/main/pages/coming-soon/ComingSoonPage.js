@@ -49,19 +49,19 @@ class ComingSoonPage extends Component {
                                 <img className="w-128 m-32" src="assets/images/logos/fuse.svg" alt="logo"/>
 
                                 <Typography variant="subtitle1" className="mb-16">
-                                    Thank you for visiting! <br/> This is Secure The Box!
+                                    Hey! Thank you for checking out our app.
                                 </Typography>
 
                                 <Typography color="textSecondary" className="max-w-288">
-                                A platform to assess security skills. 
+                                    It’s not quite ready yet, but we are working hard and it will be ready in approximately:
                                 </Typography>
 
-                                <FuseCountdown endDate="2019-06-01" className="my-48"/>
+                                <FuseCountdown endDate="2019-07-28" className="my-48"/>
 
                                 <Divider className="w-48"/>
 
                                 <Typography className="font-bold my-32 w-full">
-                                    If you would like to be notified,<br/>subscribe to our e-mail list.
+                                    If you would like to be notified when the app is ready, you can subscribe to our e-mail list.
                                 </Typography>
 
                                 <form name="subscribeForm" noValidate className="flex flex-col justify-center w-full">

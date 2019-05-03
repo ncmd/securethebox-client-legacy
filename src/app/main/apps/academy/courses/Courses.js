@@ -25,9 +25,6 @@ import _ from '@lodash';
 import {Link} from 'react-router-dom';
 import * as Actions from '../store/actions';
 import reducer from '../store/reducers';
-import {
-    manageChallenge
-} from '../../../../store/actions/securethebox'
 
 const styles = theme => ({
     header    : {
@@ -204,16 +201,6 @@ class Courses extends Component {
                                         </CardContent>
                                         <Divider/>
                                         <CardActions className="justify-center">
-                                        <Button
-                                            onClick={this.props.manageChallenge('us-west1-a','oppa','apply')}
-                                        >
-                                            Start Challenge
-                                        </Button>
-                                        <Button
-                                            onClick={this.props.manageChallenge('us-west1-a','oppa','delete')}
-                                        >
-                                            End Challenge
-                                        </Button>
                                             <Button
                                                 to={`/apps/academy/courses/${course.id}/${course.slug}`}
                                                 component={Link}
@@ -254,7 +241,6 @@ function mapDispatchToProps(dispatch)
 function mapStateToProps({academyApp})
 {
     return {
-        manageChallenge,
         courses       : academyApp.courses.data,
         searchText    : academyApp.courses.searchText,
         categories    : academyApp.courses.categories,

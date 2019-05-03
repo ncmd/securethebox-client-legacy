@@ -46,7 +46,7 @@ export function updateCourse(data)
 
         request.then((response) => {
 
-                dispatch(showMessage({message: 'Course Updated'}));
+                // dispatch(showMessage({message: 'Course Updated'}));
 
                 return dispatch({
                     type   : UPDATE_COURSE,

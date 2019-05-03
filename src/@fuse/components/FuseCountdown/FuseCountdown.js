@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    endDate: moment().add(15, 'days')
+    endDate: moment().add(2, 'hours')
 };
 
 const styles = theme => ({
@@ -80,14 +80,6 @@ class FuseCountdown extends Component {
 
         return (
             <div className={classNames(classes.root, "flex items-center", this.props.className)}>
-                <div className="flex flex-col items-center justify-center px-12">
-                    <Typography variant="h4" className="mb-4">
-                        {countdown.days}
-                    </Typography>
-                    <Typography variant="caption" color="textSecondary">
-                        days
-                    </Typography>
-                </div>
                 <div className="flex flex-col items-center justify-center px-12">
                     <Typography variant="h4" className="mb-4">
                         {countdown.hours}
