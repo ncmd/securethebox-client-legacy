@@ -86,10 +86,10 @@ const demoSteps = [
         '</br>Here are your resources:'+
         '</br></br>'+
         '<ul>'+
+        '<li> <a href="http://traefik.us-west1-a.securethebox.us" target="_blank">Traefik - http://traefik.us-west1-a.securethebox.us</a></li>'+
         '<li> <a href="http://splunk-oppa.us-west1-a.securethebox.us" target="_blank">Splunk - http://splunk-oppa.us-west1-a.securethebox.us</a></li>'+
         '<li> <a href="http://nginx-modsecurity-oppa.us-west1-a.securethebox.us" target="_blank">Web Application Firewall - http://nginx-modsecurity-oppa.us-west1-a.securethebox.us</a></li>'+
-        '<li> <a href="http://app-oppa.us-west1-a.securethebox.us" target="_blank">Vulnerable App - http://app-oppa.us-west1-a.securethebox.us</a></li>'+
-        '<li> <a href="http://wireshark-oppa.us-west1-a.securethebox.us" target="_blank">Wireshark - http://wireshark-oppa.us-west1-a.securethebox.us</a></li>'+
+        '<li> <a href="http://juice-shop-oppa.us-west1-a.securethebox.us" target="_blank">Vulnerable App - http://app-oppa.us-west1-a.securethebox.us</a></li>'+
         '</ul>' +
         '</br>'
     },

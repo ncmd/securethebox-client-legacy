@@ -12,6 +12,13 @@ import * as Actions from '../store/actions';
 import {
     manageChallenge
 } from '../../../../store/actions/securethebox'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import OpenButton from '@material-ui/icons/OpenInNew';
+
 
 const styles = theme => ({
     stepLabel: {
@@ -29,7 +36,20 @@ class Course extends Component {
         super(props);
         this.state = {
             username: '',
-            validUsername: false
+            validUsername: false,
+            rows: [
+                { name: 'splunk', description: 'Security Incient Event Management', url: 'https://splunk-userName.us-west1-a.securethebox.us' },
+                { name: 'splunk-cloudcmd', description: 'File manager, command-line console, text editor.', url: 'https://splunk-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { name: 'splunk-universal-forwarder', description: 'Parses logs in /var/log/challenge1 and indexes data to send to Splunk', url: 'https://splunk-universal-forwarder-userName.us-west1-a.securethebox.us' },
+                { name: 'splunk-universal-forwarder-cloudcmd', description: 'File manager, command-line console, text editor.', url: 'https://splunk-universal-forwarder-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { name: 'nginx-modsecurity', description: 'Web Application Firewall + Vulnerable Application', url: 'https://nginx-modsecurity-userName.us-west1-a.securethebox.us' },
+                { name: 'nginx-modsecurity-cloudcmd', description: 'File manager, command-line console, text editor.', url: 'https://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { name: 'juice-shop', description: 'Vulnerable Application', url: 'https://juice-shop-userName.us-west1-a.securethebox.us' },
+                { name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { name: 'wireshark', description: 'Deep Packet Inspection.', url: 'https://wireshark-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', url: 'https://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { name: 'logs location', description: 'All logs are saved to /var/log/challenge1' },
+            ]
         };
     }
 
@@ -84,6 +104,44 @@ class Course extends Component {
         } else {
             this.setState({ validUsername: false })
         }
+    }
+
+
+    renderScopeResources() {
+        return (
+            <div className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64" >
+                <Paper className="w-full rounded-8 p-16 md:p-24" elevation={1}>
+                    <h1>Scope and Resources</h1>
+                    <br />
+                    <Table >
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell align="left">Description</TableCell>
+                                <TableCell align="left">URL</TableCell>
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.rows.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell align="left">{row.description}</TableCell>
+                                    <TableCell align="left">
+                                        <IconButton color="primary" href={row.url} target="_blank" aria-label="Open to new window">
+                                            <OpenButton />
+                                        </IconButton>
+
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
+            </div>
+        )
     }
 
 
@@ -273,6 +331,12 @@ class Course extends Component {
                                                     </Paper>
                                                 </div>
                                             )
+                                        }
+                                        if (index === 4) {
+                                            return (
+                                                this.renderScopeResources()
+                                            )
+
                                         }
                                         if (index === 5) {
                                             return (
