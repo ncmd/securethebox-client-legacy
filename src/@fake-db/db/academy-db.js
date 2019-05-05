@@ -45,10 +45,6 @@ const demoSteps = [
         '<li>Apply monitoring solutions.</li>'+
         '<li>Identify compromised data/files/etc.</li>'+
         '<li>Forensic analysis of compromised systems.</li>'+
-        '<li>Apply static analysis, scan code for vulnerabilities</li>'+
-        '<li>Submit the IP Addresses of clients making these attacks.</li>' +
-        '<li>This will install the three packages locally and add them as declared dependencies in your package.js file.</li>'+
-        '<li>Apply dynamic analysis (burp suite)</li>'+
         '</ul>'
     },
     {

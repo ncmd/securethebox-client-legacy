@@ -23,7 +23,9 @@ const enhancer = composeEnhancers(
 
 const store = createStore(createReducer(), enhancer);
 
+
 store.asyncReducers = {};
+
 
 export const injectReducer = (key, reducer) => {
     if ( store.asyncReducers[key] )
@@ -32,7 +34,7 @@ export const injectReducer = (key, reducer) => {
     }
     store.asyncReducers[key] = reducer;
     store.replaceReducer(createReducer(store.asyncReducers));
-    return store;
+    return { store }
 };
 
-export default store;
+export default store
