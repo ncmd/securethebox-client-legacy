@@ -28,3 +28,5 @@ yarn-error.log*
 .idea
 node_modules
 .vscode
+private.json
+firebaseServiceConfig.js

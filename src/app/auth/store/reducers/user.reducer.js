@@ -1,6 +1,7 @@
 import * as Actions from '../actions';
 
 const initialState = {
+
     role: 'guest',
     data: {
         'displayName': 'John Doe',

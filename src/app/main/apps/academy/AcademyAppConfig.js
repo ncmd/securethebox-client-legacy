@@ -1,6 +1,7 @@
 import React from 'react';
 import {FuseLoadable} from '@fuse';
 import {Redirect} from 'react-router-dom';
+import {authRoles} from 'app/auth';
 
 export const AcademyAppConfig = {
     settings: {
@@ -24,6 +25,10 @@ export const AcademyAppConfig = {
             }
         }
     },
+    // settings:{
+    //     layout: {}
+    // },
+    auth    : authRoles.user,
     routes  : [
         {
             path     : '/apps/academy/courses/:courseId/:courseHandle?',
@@ -38,7 +43,7 @@ export const AcademyAppConfig = {
             })
         },
         {
-            path     : '/',
+            path     : '/apps/academy',
             component: () => <Redirect to="/apps/academy/courses"/>
         }
     ]

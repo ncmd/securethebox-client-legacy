@@ -17,6 +17,9 @@ import FormStateToRedux from './FormStateToRedux'
 import FormStateFromRedux from './FormStateFromRedux'
 import store from "./store";
 import { Provider } from "react-redux";
+import firebaseService from '../../../../../app/services/firebaseService';
+// import firebaseService from 'app/services/firebaseService';
+
 
 const TextFieldWrapper = ({ input: { name, onChange, value, ...restInput }, meta, ...rest }) => {
     const showError = ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) && meta.touched;
@@ -67,7 +70,15 @@ class CourseSubmission extends Component {
     }
 
     componentDidMount() {
+        // firebaseService.testAdd()
+        // if (this.props.user.loading === true){
+        //     console.log("LOADING:",this.props.user['data'].displayName)
+        //     this.setState({
+        //         username:this.props.user['data'].displayName
+        //     })
 
+           
+        // }
     }
 
     iterateQuestions(object) {
@@ -94,8 +105,23 @@ class CourseSubmission extends Component {
 
     submitAnswers(initialValues) {
         // var data = {solutionData: initialValues}
-        console.log(initialValues)
-        axios.post('http://localhost:5000/api/solutions/challenges/1', initialValues);
+        console.log("PROPS:",this.props)
+        // if (this.props.user.loading === true){
+        //     console.log("LOADING:",this.props.user['data'].displayName)
+        //     var data = {
+        //         username: this.props.user['data'].displayName,
+        //         challenge: 1,
+        //         answers: initialValues
+        //     }
+        //     // axios.post('http://localhost:5000/api/solutions/challenges/1', initialValues);
+        //     firebaseService.addSubmission(data)
+            
+        //     }
+        // else{
+        //     console.log("User not logged in")
+        // }
+        
+       
     }
 
     render() {
@@ -160,10 +186,10 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-function mapStateToProps({ academyApp }) {
+function mapStateToProps({ auth }) {
     return {
-        securethebox: academyApp.securethebox
+        user: auth.user
     }
 }
 
-export default withReducer('academyApp', reducer)(withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(CourseSubmission)));
+export default withReducer('auth', reducer)(withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(CourseSubmission)));

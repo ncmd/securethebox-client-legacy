@@ -2,6 +2,7 @@ import config from './firebaseServiceConfig';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/firestore';
 
 class firebaseService {
 
@@ -13,6 +14,7 @@ class firebaseService {
         }
         firebase.initializeApp(config);
         this.db = firebase.database();
+        this.fs = firebase.firestore();
         this.auth = firebase.auth();
     }
 
@@ -54,6 +56,17 @@ class firebaseService {
             return;
         }
         this.auth.signOut();
+    }
+
+    addSubmission = (data) => {
+        console.log("Creating Submission")
+        this.fs.collection("submissions").add(data)
+          .then(function (docRef) {
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch(function (error) {
+            console.error("Error adding document: ", error);
+          });
     }
 }
 
