@@ -2,13 +2,17 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {renderRoutes} from 'react-router-config'
 import {withStyles} from '@material-ui/core';
-import {FuseScrollbars, FuseMessage, FuseDialog} from '@fuse';
+import {
+    FuseScrollbars, 
+    // FuseMessage,
+     FuseDialog
+    } from '@fuse';
 import {connect} from 'react-redux';
 import ToolbarLayout1 from './components/ToolbarLayout1';
 import FooterLayout1 from './components/FooterLayout1';
-import LeftSideLayout1 from './components/LeftSideLayout1';
-import RightSideLayout1 from './components/RightSideLayout1';
-import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1';
+// import LeftSideLayout1 from './components/LeftSideLayout1';
+// import RightSideLayout1 from './components/RightSideLayout1';
+// import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1';
 // import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import classNames from 'classnames';
 import AppContext from 'app/AppContext';
@@ -84,9 +88,9 @@ const Layout1 = ({classes, settings, children}) => {
 
                         <div id="fuse-layout" className={classNames(classes.root, layoutConfig.mode, 'scroll-' + layoutConfig.scroll)}>
 
-                            {layoutConfig.leftSidePanel.display && (
+                            {/* {layoutConfig.leftSidePanel.display && (
                                 <LeftSideLayout1/>
-                            )}
+                            )} */}
 
                             <div className="flex flex-1 flex-col overflow-hidden relative">
 
@@ -102,9 +106,9 @@ const Layout1 = ({classes, settings, children}) => {
 
                                     <div className={classes.wrapper}>
 
-                                        {layoutConfig.navbar.display && layoutConfig.navbar.position === 'left' && (
+                                        {/* {layoutConfig.navbar.display && layoutConfig.navbar.position === 'left' && (
                                             <NavbarWrapperLayout1/>
-                                        )}
+                                        )} */}
 
                                         <div className={classes.contentWrapper}>
 
@@ -126,28 +130,28 @@ const Layout1 = ({classes, settings, children}) => {
 
                                         </div>
 
-                                        {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (
+                                        {/* {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (
                                             <NavbarWrapperLayout1/>
-                                        )}
+                                        )} */}
                                     </div>
 
-                                    {layoutConfig.footer.display && layoutConfig.footer.style !== 'fixed' && layoutConfig.footer.position === 'above' && (
+                                    {/* {layoutConfig.footer.display && layoutConfig.footer.style !== 'fixed' && layoutConfig.footer.position === 'above' && (
                                         <FooterLayout1/>
-                                    )}
+                                    )} */}
 
                                 </FuseScrollbars>
 
-                                {layoutConfig.footer.display && layoutConfig.footer.style === 'fixed' && layoutConfig.footer.position === 'above' && (
+                                {/* {layoutConfig.footer.display && layoutConfig.footer.style === 'fixed' && layoutConfig.footer.position === 'above' && (
                                     <FooterLayout1/>
-                                )}
+                                )} */}
 
                             </div>
 
-                            {layoutConfig.rightSidePanel.display && (
+                            {/* {layoutConfig.rightSidePanel.display && (
                                 <RightSideLayout1/>
-                            )}
+                            )} */}
 
-                            <FuseMessage/>
+                            {/* <FuseMessage/> */}
 
                         </div>
                     )}
@@ -161,9 +165,9 @@ const Layout1 = ({classes, settings, children}) => {
                 <AppContext.Consumer>
                     {({routes}) => (
                         <div id="fuse-layout" className={classNames(classes.root, layoutConfig.mode, 'scroll-' + layoutConfig.scroll)}>
-                            {layoutConfig.leftSidePanel.display && (
+                            {/* {layoutConfig.leftSidePanel.display && (
                                 <LeftSideLayout1/>
-                            )}
+                            )} */}
 
                             <div className="flex flex-1 flex-col overflow-hidden relative">
 
@@ -173,9 +177,9 @@ const Layout1 = ({classes, settings, children}) => {
 
                                 <div className={classes.wrapper}>
 
-                                    {layoutConfig.navbar.display && layoutConfig.navbar.position === 'left' && (
+                                    {/* {layoutConfig.navbar.display && layoutConfig.navbar.position === 'left' && (
                                         <NavbarWrapperLayout1/>
-                                    )}
+                                    )} */}
 
                                     <div className={classes.contentWrapper}>
                                         {layoutConfig.toolbar.display && layoutConfig.toolbar.position === 'below' && layoutConfig.toolbar.style === 'fixed' && (
@@ -196,30 +200,30 @@ const Layout1 = ({classes, settings, children}) => {
                                                 <FooterLayout1/>
                                             )}
                                         </FuseScrollbars>
-
+{/* 
                                         {layoutConfig.footer.display && layoutConfig.footer.position === 'below' && layoutConfig.footer.style === 'fixed' && (
                                             <FooterLayout1/>
-                                        )}
+                                        )} */}
 
                                         {/* <SettingsPanel/> */}
 
                                     </div>
 
-                                    {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (
+                                    {/* {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (
                                         <NavbarWrapperLayout1/>
-                                    )}
+                                    )} */}
                                 </div>
 
-                                {layoutConfig.footer.display && layoutConfig.footer.position === 'above' && (
+                                {/* {layoutConfig.footer.display && layoutConfig.footer.position === 'above' && (
                                     <FooterLayout1/>
-                                )}
+                                )} */}
                             </div>
 
-                            {layoutConfig.rightSidePanel.display && (
+                            {/* {layoutConfig.rightSidePanel.display && (
                                 <RightSideLayout1/>
-                            )}
+                            )} */}
 
-                            <FuseMessage/>
+                            {/* <FuseMessage/> */}
                         </div>
                     )}
                 </AppContext.Consumer>

@@ -11,7 +11,7 @@ export const AcademyAppConfig = {
                     display: false
                 },
                 toolbar       : {
-                    display: false
+                    display: true
                 },
                 footer        : {
                     display: false
@@ -25,10 +25,7 @@ export const AcademyAppConfig = {
             }
         }
     },
-    // settings:{
-    //     layout: {}
-    // },
-    auth    : authRoles.user,
+    auth   : authRoles.user,
     routes  : [
         {
             path     : '/apps/academy/courses/:courseId/:courseHandle?',

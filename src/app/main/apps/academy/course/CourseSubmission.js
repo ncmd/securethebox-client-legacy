@@ -12,12 +12,12 @@ import {
     Button,
     TextField
 } from '@material-ui/core';
-import axios from 'axios';
+// import axios from 'axios';
 import FormStateToRedux from './FormStateToRedux'
 import FormStateFromRedux from './FormStateFromRedux'
 import store from "./store";
 import { Provider } from "react-redux";
-import firebaseService from '../../../../../app/services/firebaseService';
+// import firebaseService from '../../../../../app/services/firebaseService';
 // import firebaseService from 'app/services/firebaseService';
 
 
@@ -83,21 +83,39 @@ class CourseSubmission extends Component {
 
     iterateQuestions(object) {
         var savedRender = []
+        var counter = 0
         for (var key in object) {
+            counter+=1
             if (!key.includes("_Answer")) {
                 // console.log(key, object[key]);
-                savedRender.push(
-                    <div key={key}>
-                        {object[key]}
-                        <Field
-                            fullWidth
-                            required
-                            name={key + '_Answer'}
-                            component={TextFieldWrapper}
-                            type="text"
-                        />
-                    </div>
-                )
+                if (counter < 10){
+                    savedRender.push(
+                        <div key={key}>
+                        <h3 style={{paddingTop:10 }}>{key[0]}. {object[key]}</h3>
+                            <Field
+                                fullWidth
+                                required
+                                name={key + '_Answer'}
+                                component={TextFieldWrapper}
+                                type="text"
+                            />
+                        </div>
+                    )
+                } else {
+                    savedRender.push(
+                        <div key={key}>
+                        <h3 style={{paddingTop:10 }}>{key[0]+key[1]}. {object[key]}</h3>
+                            <Field
+                                fullWidth
+                                required
+                                name={key + '_Answer'}
+                                component={TextFieldWrapper}
+                                type="text"
+                            />
+                        </div>
+                    )
+                }
+                
             }
         }
         return savedRender
@@ -131,8 +149,19 @@ class CourseSubmission extends Component {
                     <Form
                         onSubmit={this.submitAnswers}
                         initialValues={{
-                            "1_Question": "What is the Source IP address that is attacking the Vulnerable Application?",
-                            "2_Question": "What are the URLs of the resources the attacker successfully made attacks against?",
+                            "1_Question":"What is the Source IP address that is attacking the Vulnerable Application?",
+                            "2_Question":"What are the URLs of the resources the attacker successfully made attacks against?",
+                            "3_Question":"What types of attacks did the user commit?",
+                            "4_Question":"What time did the attacker successful perform an SQL Injection attack?",
+                            "5_Question":"What is the payload of the POST request made to the vulnerable resource?",
+                            "6_Question":"What is the cause of the vulnerablility?",
+                            "7_Question":"What was the time the application was bruteforced?",
+                            "8_Question":"There was a detection of fuzzing. What resource were they successful?",
+                            "9_Question":"Was the bruteforce attack successful? If so, what user did they login with? What time did it happen?",
+                            "10_Question":"The attacker was able to get a remote shell on the server, how did they do it?",
+                            "11_Question":"What did the attacker do on the server?",
+                            "12_Question":"What successful SQL queries were performed by the attacker?",
+                            "13_Question":"What was the password of admin SQL Database?",
                         }}
                         validate={validate}
                         render={({ handleSubmit, form, submitting, pristine, values }) => (
@@ -140,6 +169,7 @@ class CourseSubmission extends Component {
                                 <FormStateToRedux form="example" />
                                 <Paper style={{ padding: 16 }}>
                                     <Grid container alignItems="flex-start" spacing={8}>
+                                    <h1>Submission</h1>
                                         <Grid item xs={12}>
                                             {this.iterateQuestions(values)}
                                         </Grid>

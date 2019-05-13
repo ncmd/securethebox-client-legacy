@@ -45,7 +45,7 @@ class LoginPage extends Component {
 
                     <FuseAnimate animation="transition.expandIn">
 
-                        <Card className="w-full max-w-384">
+                        <Card className="w-full max-w-384" >
 
                             <CardContent className="flex flex-col items-center justify-center p-32">
 

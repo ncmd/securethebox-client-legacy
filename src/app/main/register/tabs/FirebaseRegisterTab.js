@@ -126,10 +126,10 @@ class FirebaseRegisterTab extends Component {
                         variant="contained"
                         color="primary"
                         className="w-full mx-auto mt-16 normal-case"
-                        aria-label="REGISTER WITH FIREBASE"
+                        aria-label="REGISTER"
                         disabled={!canSubmit}
                     >
-                        Register with Firebase
+                        Register
                     </Button>
                 </Formsy>
             </div>

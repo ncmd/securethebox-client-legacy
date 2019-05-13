@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import withReducer from 'app/store/withReducer';
 import connect from 'react-redux/es/connect/connect';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import reducer from '../../../../../app/auth/store/reducers';
-import * as Actions from '../../../../../app/auth/store/actions';
+// import * as Actions from '../../../../../app/auth/store/actions';
 import {
     withStyles,
     Paper,
@@ -68,7 +68,7 @@ class CourseStart extends Component {
 
     manageChallenge(clusterName, userName, action) {
         let data = { clusterName: clusterName, userName: userName, action: action }
-        axios.post('http://localhost:5000/api/solutions/challenges/1', data);
+        axios.post('http://localhost:5000/api/kubernetes/challenges/1', data);
     }
 
     renderUsernameTextField() {
@@ -149,7 +149,7 @@ class CourseStart extends Component {
                                     {this.state.validUsername ?
                                         <Button
                                             variant="contained" color="secondary"
-                                            onClick={this.manageChallenge('us-west1-a', this.state.username, 'apply')}
+                                            onClick={() => this.manageChallenge('us-west1-a', this.state.username, 'apply')}
                                         >
                                             Start Challenge
                                         </Button>
@@ -178,7 +178,7 @@ class CourseStart extends Component {
                                     {this.state.validUsername ?
                                         <Button
                                             variant="outlined" color="secondary"
-                                            onClick={this.manageChallenge('us-west1-a', this.state.username, 'delete')}
+                                            onClick={() => this.manageChallenge('us-west1-a', this.state.username, 'delete')}
                                         >
                                             End Challenge
                                                                         </Button>

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import withReducer from 'app/store/withReducer';
 import connect from 'react-redux/es/connect/connect';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import reducer from '../../../../../app/auth/store/reducers';
-import * as Actions from '../../../../../app/auth/store/actions';
+// import * as Actions from '../../../../../app/auth/store/actions';
 import {
     withStyles,
     Paper,
-    Grid,
-    Button,
+    // Grid,
+    // Button,
     IconButton,
-    TextField
+    // TextField
 } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,7 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import OpenButton from '@material-ui/icons/OpenInNew';
 import OnlineStatus from '@material-ui/icons/CheckCircle';
-import OfflineStatus from '@material-ui/icons/Cancel';
+// import OfflineStatus from '@material-ui/icons/Cancel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 
@@ -46,7 +46,7 @@ class CourseResources extends Component {
             validUsername: false,
             username: '',
             rows: [
-                { id: 1, name: 'splunk', description: 'Security Incident Event Management', status: true, url: 'https://splunk-userName.us-west1-a.securethebox.us' },
+                { id: 1, name: 'splunk', description: 'Security Incident Event Management', status: false, url: 'https://splunk-userName.us-west1-a.securethebox.us' },
                 { id: 2, name: 'splunk-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://splunk-userName-cloudcmd.us-west1-a.securethebox.us' },
                 { id: 3, name: 'splunk-universal-forwarder', description: 'Parses logs in /var/log/challenge1 and indexes data to send to Splunk', status: false, url: 'https://splunk-universal-forwarder-userName.us-west1-a.securethebox.us' },
                 { id: 4, name: 'splunk-universal-forwarder-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://splunk-universal-forwarder-userName-cloudcmd.us-west1-a.securethebox.us' },
@@ -62,6 +62,7 @@ class CourseResources extends Component {
     }
 
     componentDidMount() {
+
         if (typeof this.props.user['data'] != "undefined") {
             console.log("Loaded User data")
             var prevRows = this.state.rows
@@ -72,10 +73,91 @@ class CourseResources extends Component {
                 const newURL = String(oldURL).replace("userName", this.props.user['data'].displayName);
                 console.log(String(newURL))
                 prevRows[index].url = newURL
+                return null
             })
             this.setState({
                 rows: prevRows
             })
+
+            // setInterval(this.getAllResourceStatus(), 100);
+            // this.getAllResourceStatus()
+            // console.log(this.props.course)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    
+        if (this.props.course && this.props.course.activeStep === 4) {
+            // this.props.updateCourse({ activeStep: 4 });
+            this.getAllResourceStatus()
+        }
+    }
+
+    getAllResourceStatus(){
+        this.state.rows.map((row, index) => {
+            if (row.name === "splunk" || row.name === "splunk-universal-forwarder" || row.name === "nginx-modsecurity" || row.name === "juice-shop") {
+                let getstate = this.getResourceStatus(row.name,this.props.user['data'].displayName)
+                if (getstate === false){
+                    this.getAllResourceStatus()        
+                }
+            }
+            
+            return null
+        })
+    }
+
+    getResourceStatus = async (serviceName, userName) => {
+        // let data = { serviceName: serviceName, userName: userName }
+        let resourceStatus = await axios.get('http://localhost:5000/api/kubernetes/challenges/1?serviceName=' + serviceName + '&userName=' + userName)
+        // let { data } = await resourceStatus['data']
+        console.log(await resourceStatus['data'])
+        let newData = await resourceStatus['data']
+        var prevRows = this.state.rows
+        this.state.rows.map((row, index) => {
+            if (row.name === serviceName) {
+                const oldStatus = prevRows[index].status
+                console.log(String(oldStatus))
+                const newStatus = newData
+                console.log(String(newStatus))
+                prevRows[index].status = newStatus
+            }
+            return null
+        })
+        this.setState({
+            rows: prevRows
+        })
+
+        // this.setState({
+        //     serviceName: resourceStatus
+        // })
+    }
+
+    renderStatus(serviceName, status) {
+        if (serviceName === "splunk" || serviceName === "splunk-universal-forwarder" || serviceName === "nginx-modsecurity" || serviceName === "juice-shop") {
+            return (
+                <TableCell align="center" padding="dense">
+                    {status ?
+                        <IconButton color="secondary" >
+                            <OnlineStatus />
+                        </IconButton>
+                        :
+                        <IconButton color="secondary" >
+                            <CircularProgress
+                                size={20}
+                                thickness={4}
+                            />
+                        </IconButton>
+                    }
+                </TableCell>
+            )
+        } else {
+            return (
+                <TableCell align="center" padding="dense">
+                   <IconButton color="secondary" >
+                        <OnlineStatus />
+                    </IconButton>
+                </TableCell>
+            )
         }
     }
 
@@ -84,7 +166,7 @@ class CourseResources extends Component {
 
             <div className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64">
                 <Paper className="w-full rounded-8 p-16 md:p-24" elevation={1}>
-                    <h1>Scope and Resources</h1>
+                    <h1>Resources</h1>
                     <br />
                     <Table >
                         <TableHead>
@@ -93,7 +175,6 @@ class CourseResources extends Component {
                                 <TableCell align="left" padding="dense">Description</TableCell>
                                 <TableCell align="center" padding="dense">Status</TableCell>
                                 <TableCell align="center" padding="dense">URL</TableCell>
-
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -103,25 +184,14 @@ class CourseResources extends Component {
                                         {row.name}
                                     </TableCell>
                                     <TableCell align="left" padding="dense">{row.description}</TableCell>
-                                    <TableCell align="center" padding="dense">
-                                        {row.status ?
-                                            <IconButton color="secondary" >
-                                                <OnlineStatus />
-                                            </IconButton>
-                                            :
-                                            <IconButton color="secondary" >
-                                            <CircularProgress
-                                            size={20}
-                                            thickness={4}
-                                            />
-                                            </IconButton>
-                                        }
-                                    </TableCell>
+                                    
+                                    {this.renderStatus(row.name,row.status)}
                                     <TableCell align="center" padding="dense">
                                         <IconButton color="primary" href={row.url} target="_blank" aria-label="Open to new window">
                                             <OpenButton />
                                         </IconButton>
                                     </TableCell>
+                                    
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -133,9 +203,10 @@ class CourseResources extends Component {
     };
 }
 
-function mapStateToProps({ auth }) {
+function mapStateToProps({ auth,academyApp }) {
     return {
-        user: auth.user
+        user: auth.user,
+        course: academyApp.course
     }
 }
 

@@ -3,7 +3,7 @@ import {Avatar, Button, Icon, ListItemIcon, ListItemText, Popover, MenuItem, Typ
 import {connect} from 'react-redux';
 import * as authActions from 'app/auth/store/actions';
 import {bindActionCreators} from 'redux';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 
 class UserMenu extends Component {
 
@@ -70,7 +70,7 @@ class UserMenu extends Component {
                 >
                     {user.role === 'guest' ? (
                         <React.Fragment>
-                            <MenuItem component={Link} to="/login">
+                            {/* <MenuItem component={Link} to="/login">
                                 <ListItemIcon>
                                     <Icon>lock</Icon>
                                 </ListItemIcon>
@@ -81,22 +81,22 @@ class UserMenu extends Component {
                                     <Icon>person_add</Icon>
                                 </ListItemIcon>
                                 <ListItemText className="pl-0" primary="Register"/>
-                            </MenuItem>
+                            </MenuItem> */}
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            <MenuItem component={Link} to="/pages/profile" onClick={this.userMenuClose}>
+                            {/* <MenuItem component={Link} to="/pages/profile" onClick={this.userMenuClose}>
                                 <ListItemIcon>
                                     <Icon>account_circle</Icon>
                                 </ListItemIcon>
                                 <ListItemText className="pl-0" primary="My Profile"/>
-                            </MenuItem>
-                            <MenuItem component={Link} to="/apps/mail" onClick={this.userMenuClose}>
+                            </MenuItem> */}
+                            {/* <MenuItem component={Link} to="/apps/mail" onClick={this.userMenuClose}>
                                 <ListItemIcon>
                                     <Icon>mail</Icon>
                                 </ListItemIcon>
                                 <ListItemText className="pl-0" primary="Inbox"/>
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={() => {
                                     logout();

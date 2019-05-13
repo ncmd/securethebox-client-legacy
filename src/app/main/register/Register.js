@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { withStyles, Card, CardContent, Tab, Tabs, Typography } from '@material-ui/core';
+import { withStyles, Card, CardContent, Tab, 
+    // Tabs, 
+    Typography, Button } from '@material-ui/core';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
 import { connect } from 'react-redux'
@@ -72,43 +74,31 @@ class Register extends Component {
 
                     <FuseAnimate animation="transition.expandIn">
 
-                        <Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>
+                        <Card className="w-full max-w-400 mx-auto m-16 md:m-0">
 
                             <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128 ">
-                            <Typography variant="h6" className="text-center md:w-full mb-48">CREATE AN ACCOUNT</Typography>
-                                
+                                <Typography variant="h6" className="text-center md:w-full mb-48">CREATE AN ACCOUNT</Typography>
 
-                                <Tabs
-                                    value={tabValue}
-                                    onChange={this.handleTabChange}
-                                    variant="fullWidth"
-                                    className="mb-32"
-                                >
-                                    {/* <Tab
-                                        icon={<img className="h-40 p-4 bg-black rounded-12" src="assets/images/logos/jwt.svg" alt="firebase" />}
-                                        className="min-w-0"
-                                        label="JWT"
-                                    /> */}
-                                    <Tab
-                                        icon={<img className="h-40" src="assets/images/logos/firebase.svg" alt="firebase" />}
-                                        className="min-w-0"
-                                        label="Firebase"
-                                    />
-                                    {/* <Tab
-                                        icon={<img className="h-40" src="assets/images/logos/auth0.svg" alt="auth0" />}
-                                        className="min-w-0"
-                                        label="Auth0"
-                                    /> */}
-                                </Tabs>
+
+                                <Tab
+                                    icon={<img className="h-45" src="assets/images/logos/stb.png" alt="SecureTheBox" />}
+                                    className="min-w-0"
+                                    label="SecureTheBox"
+                                />
 
                                 {/* {tabValue === 0 && <JWTRegisterTab />} */}
                                 {tabValue === 0 && <FirebaseRegisterTab />}
                                 {/* {tabValue === 2 && <Auth0RegisterTab />} */}
 
                                 <div className="flex flex-col items-center justify-center pt-32 pb-24">
-                                    <span className="font-medium">Already have an account?</span>
-                                    <Link className="font-medium" to="/login">Login</Link>
-                                    <Link className="font-medium mt-8" to="/">Back to Dashboard</Link>
+                                    <span className="font-medium" style={{ color: 'black' }}>Already have an account?</span>
+
+                                    <Link style={{ color: 'white' }} className="w-full font-medium mb-16" to="/login">
+                                        <Button variant="contained" color="secondary" className="w-full mx-auto mt-16 normal-case">
+                                            Log in
+                                        </Button>
+                                    </Link>
+
                                 </div>
 
                                 <div className="flex flex-col items-center">
