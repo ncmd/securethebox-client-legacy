@@ -12,7 +12,7 @@ const demoSteps = [
             '<ul>'+
             '<li>You will be graded on a Blue Team Incident Response scenario.</li>' +
             '<li>Time to complete this challenge is 2 hours.</li>' +
-            '<li>You will not be provided answers after this challenge, but your results will be emailed to you.</li>' +
+            '<li>Results will be emailed to you.</li>' +
             '<li>Candidates will demonstrate skill and experience with the following:</li><br/>'+
             '<ul>'+
             '<li>Linux CLI experience</li>'+
@@ -77,7 +77,7 @@ const demoSteps = [
     },
     {
         'id'     : '4',
-        'title'  : 'Scope & Resources',
+        'title'  : 'Resources',
         'content': '<h1>Scope & Resources</h1>' +
         '</br>Here are your resources:'+
         '</br></br>'+
@@ -100,7 +100,7 @@ const demoSteps = [
     },
     {
         'id'     : '6',
-        'title'  : 'Congratulations!',
+        'title'  : 'Scoring',
         'content': '<h1>Congratulations</h1>' +
             '<br>' +
             'Congrats on your attempt on the challenge!.' +

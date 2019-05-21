@@ -20,7 +20,8 @@ import OpenButton from '@material-ui/icons/OpenInNew';
 import CourseSubmission from './CourseSubmission';
 import CourseStart from './CourseStart';
 import CourseResources from './CourseResources';
-
+import CourseScenario from './CourseScenario';
+import CourseScoring from './CourseScoring';
 
 const styles = theme => ({
     stepLabel: {
@@ -235,6 +236,11 @@ class Course extends Component {
                                     onChangeIndex={this.handleChangeActiveStep}
                                 >
                                     {course.steps.map((step, index) => {
+                                        if (index === 2) {
+                                            return (
+                                                <CourseScenario key={step.id}/>
+                                            )
+                                        }
                                         if (index === 3) {
                                             return (
                                                 <CourseStart key={step.id}/>
@@ -248,6 +254,11 @@ class Course extends Component {
                                         if (index === 5) {
                                             return (
                                                 <CourseSubmission key={step.id}/>
+                                            )
+                                        }
+                                        if (index === 6) {
+                                            return (
+                                                <CourseScoring key={step.id}/>
                                             )
 
                                         }

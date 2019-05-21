@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import withReducer from 'app/store/withReducer';
 import connect from 'react-redux/es/connect/connect';
-// import { bindActionCreators } from 'redux';
 import reducer from '../../../../../app/auth/store/reducers';
-// import * as Actions from '../../../../../app/auth/store/actions';
 import {
     withStyles,
     Paper,
-    // Grid,
-    // Button,
     IconButton,
-    // TextField
 } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,7 +14,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import OpenButton from '@material-ui/icons/OpenInNew';
 import OnlineStatus from '@material-ui/icons/CheckCircle';
-// import OfflineStatus from '@material-ui/icons/Cancel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 
@@ -33,11 +27,6 @@ const styles = theme => ({
     }
 });
 
-// const validate = values => {
-//     const errors = {};
-//     return errors;
-// };
-
 class CourseResources extends Component {
 
     constructor(props) {
@@ -46,17 +35,13 @@ class CourseResources extends Component {
             validUsername: false,
             username: '',
             rows: [
-                { id: 1, name: 'splunk', description: 'Security Incident Event Management', status: false, url: 'https://splunk-userName.us-west1-a.securethebox.us' },
-                { id: 2, name: 'splunk-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://splunk-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 3, name: 'splunk-universal-forwarder', description: 'Parses logs in /var/log/challenge1 and indexes data to send to Splunk', status: false, url: 'https://splunk-universal-forwarder-userName.us-west1-a.securethebox.us' },
-                { id: 4, name: 'splunk-universal-forwarder-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://splunk-universal-forwarder-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 5, name: 'nginx-modsecurity', description: 'Web Application Firewall + Vulnerable Application', status: false, url: 'https://nginx-modsecurity-userName.us-west1-a.securethebox.us' },
-                { id: 6, name: 'nginx-modsecurity-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 7, name: 'juice-shop', description: 'Vulnerable Application', status: false, url: 'https://juice-shop-userName.us-west1-a.securethebox.us' },
-                { id: 8, name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 9, name: 'wireshark', description: 'Deep Packet Inspection.', status: false, url: 'https://wireshark-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 10, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'https://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 11, name: 'logs location', description: 'All logs are saved to /var/log/challenge1' },
+                { id: 1, name: 'splunk', description: 'Security Incident Event Management', status: false, url: 'http://splunk-userName.us-west1-a.securethebox.us:8000' },
+                { id: 2, name: 'nginx-modsecurity', description: 'Web Application Firewall + Vulnerable Application', status: false, url: 'http://nginx-modsecurity-userName.us-west1-a.securethebox.us' },
+                { id: 3, name: 'nginx-modsecurity-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'http://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { id: 4, name: 'juice-shop', description: 'Vulnerable  Application', status: false, url: 'http://juice-shop-userName.us-west1-a.securethebox.us' },
+                { id: 5, name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { id: 6, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
+                { id: 7, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
             ]
         };
     }
@@ -78,7 +63,6 @@ class CourseResources extends Component {
             this.setState({
                 rows: prevRows
             })
-
             // setInterval(this.getAllResourceStatus(), 100);
             // this.getAllResourceStatus()
             // console.log(this.props.course)
@@ -87,11 +71,35 @@ class CourseResources extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
     
-        if (this.props.course && this.props.course.activeStep === 4) {
+        if (this.props.course && this.props.course.activeStep === 5) {
             // this.props.updateCourse({ activeStep: 4 });
-            this.getAllResourceStatus()
+            // this.getAllResourceStatus()
         }
     }
+
+
+    getResourceStatusNew = async (serviceName, userName) => {
+        // let data = { serviceName: serviceName, userName: userName }
+        let resourceStatus = await axios.get('http://' + serviceName + '&userName=' + userName)
+        // let { data } = await resourceStatus['data']
+        console.log(await resourceStatus['data'])
+        let newData = await resourceStatus['data']
+        var prevRows = this.state.rows
+        this.state.rows.map((row, index) => {
+            if (row.name === serviceName) {
+                const oldStatus = prevRows[index].status
+                console.log(String(oldStatus))
+                const newStatus = newData
+                console.log(String(newStatus))
+                prevRows[index].status = newStatus
+            }
+            return null
+        })
+        this.setState({
+            rows: prevRows
+        })
+    }
+
 
     getAllResourceStatus(){
         this.state.rows.map((row, index) => {
@@ -101,7 +109,6 @@ class CourseResources extends Component {
                     this.getAllResourceStatus()        
                 }
             }
-            
             return null
         })
     }
@@ -126,10 +133,6 @@ class CourseResources extends Component {
         this.setState({
             rows: prevRows
         })
-
-        // this.setState({
-        //     serviceName: resourceStatus
-        // })
     }
 
     renderStatus(serviceName, status) {
