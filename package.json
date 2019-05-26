@@ -67,6 +67,7 @@
         "redux-persist": "^5.10.0",
         "redux-thunk": "2.3.0",
         "ringjs": "^0.0.1",
+        "socket.io-client": "^2.2.0",
         "typeface-muli": "0.0.71",
         "underscore": "^1.9.1",
         "velocity-react": "1.4.1"

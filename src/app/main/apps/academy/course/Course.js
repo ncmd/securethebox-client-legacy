@@ -256,7 +256,7 @@ class Course extends Component {
                                                 <CourseSubmission key={step.id}/>
                                             )
                                         }
-                                        if (index === 6) {
+                                        if (index === 0) {
                                             return (
                                                 <CourseScoring key={step.id}/>
                                             )

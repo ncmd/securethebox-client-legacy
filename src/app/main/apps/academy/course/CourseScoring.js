@@ -6,7 +6,12 @@ import {
     withStyles,
     Paper,
 } from '@material-ui/core';
-import ScoringServiceChart from './ScoringServiceChart';
+import io from "socket.io-client";
+import { defaults } from 'react-chartjs-2';
+import { TimeSeries, TimeRangeEvent, TimeRange } from "pondjs";
+import { ChartContainer, ChartRow, Charts, EventChart, Resizable} from "react-timeseries-charts";
+
+defaults.global.animation = false;
 
 const styles = theme => ({
     stepLabel: {
@@ -18,28 +23,213 @@ const styles = theme => ({
     }
 });
 
+const datenow = new Date()
+const datenow2 = new Date()
+datenow2.setMinutes( datenow2.getMinutes() + 5 );
+// datenow2.setHours( datenow2.getHours() + 1 );
+const dateIsoString = datenow.toISOString()
+const thistimerange = new TimeRange(new Date(dateIsoString), new Date(datenow2.toISOString()))
+
 class CourseScoring extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            appStatus:"offline",
+            authenticationStatus:"failed",
+            outageEvents: [],
+            apiOutageEvents: [],
+            series: new TimeSeries(),
+            apiseries: new TimeSeries(),
+            response: [],
+            datapool: [],
+            status:"Disconnected",
+            endpoint: "https://localhost:6600",
+            tracker:"",
+            timerange: thistimerange,
+            apitimerange: thistimerange,
+        }
     }
 
     componentDidMount() {
 
-    }
-
-    // Check Service is up with POST requests
-    checkServiceUp(serviceName, userName) {
+        // interval every 1 second
+        setInterval(
+            () =>
+            {
+                const events = this.state.outageEvents.map(
+                    ({ startTime, endTime, ...data }) =>
+                        new TimeRangeEvent(new TimeRange(new Date(startTime), new Date(endTime)), data)
+                );
+                if (this.state.outageEvents.length > 0){
+                    const firstTime = this.state.outageEvents[0]
+                    const lastTime = this.state.outageEvents[this.state.outageEvents.length - 1]
+                    const newTimeRange = new TimeRange(new Date(firstTime.startTime), new Date(lastTime.endTime))
+                    // console.log("TIME RANGE:",firstTime.startTime,lastTime.endTime)
+                    this.setState({
+                        series: new TimeSeries({ name: "outages", events }),
+                        timerange: newTimeRange
+                    })
+                }
+            }, 1000
+        );
         
+        
+        const socket = io("http://localhost:6600");
+        socket.on('my_response', (data) => {
+            let prevOutageEvents = this.state.outageEvents
+            console.log("DATA -- ",data)
+            this.setState({
+                authenticationStatus: data.api_user_login
+            })
+           
+            // prevOutageEvents.push(data)
+            // if current status matches incoming status... modify outageEvent time
+            if (data.app_status === "online" && this.state.appStatus != "online") {
+                this.setState({appStatus: "online"})
+                prevOutageEvents.push(data)
+                this.setState({
+                    outageEvents: prevOutageEvents
+                }, () => {
+                    // console.log("Outage Events:",this.state.outageEvents)
+                }
+                )
+            } else if (data.app_status === "offline" && this.state.appStatus != "offline") {
+                this.setState({appStatus: "offline"})
+                prevOutageEvents.push(data)
+                this.setState({
+                    outageEvents: prevOutageEvents
+                }, () => {
+                    // console.log("Outage Events:",this.state.outageEvents)
+                }
+                )
+            } else if (data.app_status === "online" && this.state.appStatus == "online") {
+                this.setState({appStatus: "online"})
+                prevOutageEvents[this.state.outageEvents.length - 1].endTime = data.endTime
+                this.setState({
+                    outageEvents: prevOutageEvents
+                }, () => {
+                    // console.log("Outage Events:",this.state.outageEvents)
+                }
+                )
+            } else if (data.app_status === "offline" && this.state.appStatus == "offline") {
+                this.setState({appStatus: "offline"})
+                if (typeof data.endTime !== 'undefined' && typeof data.endTime !== undefined && this.state.outageEvents.length > 0 ){
+                    prevOutageEvents[this.state.outageEvents.length - 1].endTime = data.endTime
+                    this.setState({
+                        outageEvents: prevOutageEvents
+                    }, () => {
+                        // console.log("Outage Events:",this.state.outageEvents)
+                    }
+                    )
+                }
+            }        
+        })
     }
 
+    handleTrackerChanged(tracker) {
+        this.setState({ tracker });
+    }
+    handleTimeRangeChange(timerange) {
+        this.setState({ timerange });
+    }
+
+    outageEventStyleFunc(event, state) {
+        const color = event.get("app_status") === "online" ? "#28a745" : "#ff5858";
+        switch (state) {
+            case "normal":
+                return {
+                    fill: color
+                };
+            case "hover":
+                return {
+                    fill: color,
+                    opacity: 0.4
+                };
+            case "selected":
+                return {
+                    fill: color
+                };
+            default:
+            //pass
+        }
+    }
+
+    apiOutageEventStyleFunc(event, state) {
+        const color = event.get("api_user_login") === "success" ? "#28a745" : "#ff5858";
+        switch (state) {
+            case "normal":
+                return {
+                    fill: color
+                };
+            case "hover":
+                return {
+                    fill: color,
+                    opacity: 0.4
+                };
+            case "selected":
+                return {
+                    fill: color
+                };
+            default:
+            //pass
+        }
+    }
 
     render() {
+        
         return (
             <div className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64">
                 <Paper className="w-full rounded-8 p-16 md:p-24" elevation={1}>
                 <h1>Application Health</h1>
+                <h2>Available Status: {this.state.appStatus}</h2>
+                <Resizable>
+                    <ChartContainer
+                        timeRange={this.state.timerange}
+                        enablePanZoom={false}
+                        onTimeRangeChanged={ (date) => this.handleTimeRangeChange(date)}
+                    >
+                        <ChartRow height="30">
+                            <Charts>
+                                <EventChart
+                                    series={this.state.series}
+                                    size={30}
+                                    style={this.outageEventStyleFunc}
+                                    // label={e => e.get("title")}
+                                />
+                            </Charts>
+                        </ChartRow>
+                    </ChartContainer>
+                </Resizable>
+                <h2>API Status </h2>
+                /rest/user/login - {this.state.authenticationStatus}
+                <Resizable>
+                    <ChartContainer
+                        timeRange={this.state.timerange}
+                        enablePanZoom={false}
+                        onTimeRangeChanged={ (date) => this.handleTimeRangeChange(date)}
+                    >
+                        <ChartRow height="15">
+                            <Charts>
+                                <EventChart
+                                    series={this.state.series}
+                                    size={30}
+                                    style={this.apiOutageEventStyleFunc}
+                                    // label={e => e.get("title")}
+                                />
+                            </Charts>
+                        </ChartRow>
+                    </ChartContainer>
+                </Resizable>
+                <h3>Scoring Requirements</h3>
+                <ul>
+                    <li>Service (online ; frontend/backend)</li>
+                    <li>APIs (making orders work)</li>
+                    <li>Authentication (keep out unauthenticated users, allow users to login)</li>
+                    <li>PII (confidentiality & integrity of user passwords and user information)</li>
+                    <li>Performance (500 ms maximum load time)</li>
+                </ul>
+                {/* <RealTimeChart/> */}
                 <h3>Backend (Express) </h3>
                 <ul>
                     <li>Online</li>
@@ -48,14 +238,13 @@ class CourseScoring extends Component {
                 <ul>
                     <li>frequency of checks</li>
                     <li>success critera</li>
-                    <li>success critera</li>
                     <li>uptime (Frontend, Database, Backend)</li>
                     <li>availability (Cache)</li>
                     <li>connection speed (ms)</li>
                     <li>business logic working</li>
                 </ul>
                 <h1>Scoring</h1>
-                <ScoringServiceChart/>
+                {/* <ScoringServiceChart/> */}
                 <h2>Application Security</h2>
                 <ul>
                     <li>OWASP TOP 10</li>
