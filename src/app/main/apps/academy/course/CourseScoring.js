@@ -115,7 +115,7 @@ class CourseScoring extends Component {
                         timerange: newTimeRange
                     })
                 } 
-            }, 5000
+            }, 1000
         );
         
         
@@ -123,9 +123,14 @@ class CourseScoring extends Component {
         socket.on('my_response', (data) => {
             let prevOutageEvents = this.state.outageEvents
             let prevLineData = this.state.lineData
-            let starttimestamp = moment(new Date(data.startTime))
-            let endtimestamp = moment(new Date(data.endTime))
-            prevLineData.push({ "time": data.startTime,"user_count": data.user_count})
+            // let starttimestamp = moment(new Date(data.startTime))
+            // let endtimestamp = moment(new Date(data.endTime))
+            
+            if (prevLineData[prevLineData.length - 1] == 0 && data.user_count == 0){
+                prevLineData.push({ "time": data.startTime,"user_count": prevLineData[prevLineData.length - 2]})
+            } else {
+                prevLineData.push({ "time": data.startTime,"user_count": data.user_count})
+            }
             
             this.setState({
                 lineData: prevLineData,

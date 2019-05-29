@@ -228,7 +228,8 @@ class Course extends Component {
                 content={
                     course && (
                         <div className="flex flex-1 relative overflow-hidden">
-                            <FuseScrollbars className="w-full overflow-auto">
+                            <FuseScrollbars>
+                            {/* <FuseScrollbars className="w-full overflow-auto"> */}
                                 <SwipeableViews
                                     className="overflow-hidden"
                                     index={activeStep - 1}
