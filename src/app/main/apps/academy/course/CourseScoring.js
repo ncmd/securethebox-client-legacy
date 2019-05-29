@@ -9,7 +9,9 @@ import {
 import io from "socket.io-client";
 import { defaults } from 'react-chartjs-2';
 import { TimeSeries, TimeRangeEvent, TimeRange } from "pondjs";
-import { ChartContainer, ChartRow, Charts, EventChart, Resizable} from "react-timeseries-charts";
+import { ChartContainer, ChartRow, Charts, EventChart, Resizable,YAxis, LineChart, styler, Legend} from "react-timeseries-charts";
+import moment from "moment";
+import _ from "underscore";
 
 defaults.global.animation = false;
 
@@ -35,14 +37,16 @@ class CourseScoring extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            charts:[],
             appStatus:"offline",
             authenticationStatus:"failed",
             outageEvents: [],
             apiOutageEvents: [],
+            lineEvents: [],
+            lineData:[],
             series: new TimeSeries(),
-            apiseries: new TimeSeries(),
+            lineseries: new TimeSeries(),
             response: [],
-            datapool: [],
             status:"Disconnected",
             endpoint: "https://localhost:6600",
             tracker:"",
@@ -61,25 +65,70 @@ class CourseScoring extends Component {
                     ({ startTime, endTime, ...data }) =>
                         new TimeRangeEvent(new TimeRange(new Date(startTime), new Date(endTime)), data)
                 );
+
+                // const lineEvents = this.state.lineEvents.map(
+                //     ({ startTime, endTime, ...data }) =>
+                //     new TimeRangeEvent(new TimeRange(new Date(startTime), new Date(endTime)), data)
+                // )
+
+                const prevLineEvents = []
+                _.each(this.state.lineData, val => {
+                    const timestamp = moment(new Date(val["time"]));
+                    const user_count = val["user_count"];
+                    prevLineEvents.push([timestamp.toDate().getTime(), user_count]);
+                });
+                this.setState({
+                    lineEvents: prevLineEvents
+                })
+
+                const prevLineSeries = new TimeSeries({ 
+                    name: "user_count", 
+                    columns: ["time","user_count"], 
+                    points: this.state.lineEvents
+                })
+                this.setState({
+                    lineseries: prevLineSeries
+                })
+                console.log("PREV LINE EVENTS -- ",prevLineEvents)
+                console.log("LINE EVENTS -- ",this.state.lineEvents)
+                console.log("LINE DATA -- ",this.state.lineData)
+                console.log("LINE SERIES -- ",this.state.lineseries)
+
+                // if (this.state.lineEvents.length > 0){
+                //     let prevLineSeries = new TimeSeries({ 
+                //         name: "user_count", 
+                //         columns: ["startTime","user_count"], 
+                //         points: lineEvents
+                //     })
+                //     // console.log("LINE EVENTS -- ",lineEvents)
+                //     this.setState({
+                //         lineseries: prevLineSeries
+                //     })
+                // }
+
                 if (this.state.outageEvents.length > 0){
                     const firstTime = this.state.outageEvents[0]
                     const lastTime = this.state.outageEvents[this.state.outageEvents.length - 1]
                     const newTimeRange = new TimeRange(new Date(firstTime.startTime), new Date(lastTime.endTime))
-                    // console.log("TIME RANGE:",firstTime.startTime,lastTime.endTime)
                     this.setState({
                         series: new TimeSeries({ name: "outages", events }),
                         timerange: newTimeRange
                     })
-                }
-            }, 1000
+                } 
+            }, 5000
         );
         
         
         const socket = io("http://localhost:6600");
         socket.on('my_response', (data) => {
             let prevOutageEvents = this.state.outageEvents
-            console.log("DATA -- ",data)
+            let prevLineData = this.state.lineData
+            let starttimestamp = moment(new Date(data.startTime))
+            let endtimestamp = moment(new Date(data.endTime))
+            prevLineData.push({ "time": data.startTime,"user_count": data.user_count})
+            
             this.setState({
+                lineData: prevLineData,
                 authenticationStatus: data.api_user_login
             })
            
@@ -176,6 +225,110 @@ class CourseScoring extends Component {
         }
     }
 
+    apiBasketOutageEventStyleFunc(event, state) {
+        const color = event.get("basket_result") === "success" ? "#28a745" : "#ff5858";
+        switch (state) {
+            case "normal":
+                return {
+                    fill: color
+                };
+            case "hover":
+                return {
+                    fill: color,
+                    opacity: 0.4
+                };
+            case "selected":
+                return {
+                    fill: color
+                };
+            default:
+            //pass
+        }
+    }
+    renderLineChartLegend(){
+        const linestyle = styler([
+            { key: "user_count", color: "#2ca02c", width: 5 },
+            { key: "user_active", color: "#000000", width: 5 },
+        ]);
+        const legend = [
+            {
+                key: "user_count",
+                label: "Registered Users"
+            },
+            {
+                key: "user_active",
+                label: "Active Users"
+            }
+        ];
+
+        return (
+            <div className="row">
+                    <div className="col-md-12">
+                        <Legend
+                            type="line"
+                            style={linestyle}
+                            categories={legend}
+                        />
+                    </div>
+                </div>
+        )
+    }
+
+    renderLineChart(){
+        const linestyle = styler([
+            { key: "user_count", color: "#2ca02c", width: 3 }
+        ]);
+        if (this.state.lineEvents.length > 0){
+            return (
+                <Resizable>
+                        <ChartContainer
+                            title="Registered vs Active"
+                            style={{
+                                background: "#ffffff",
+                                borderRadius: 8,
+                                borderStyle: "solid",
+                                borderWidth: 0,
+                                borderColor: "#000000"
+                            }}
+                            titleStyle={{
+                                color: "#EEE",
+                                fontWeight: 500
+                            }}
+                            padding={20}
+                            paddingTop={5}
+                            paddingBottom={0}
+                            timeRange={this.state.timerange}
+                        >
+                            <ChartRow height="300">
+                                <YAxis
+                                    id="user_count"
+                                    label="users_registered"
+                                    showGrid
+                                    hideAxisLine
+                                    transition={300}
+                                    labelOffset={-10}
+                                    min={0}
+                                    max={50}
+                                    format=",.0f"
+                                    width="60"
+                                    type="linear"
+                                />
+                                <Charts>
+                                    <LineChart key="user_count" axis="user_count" style={linestyle} columns={["user_count"]} series={this.state.lineseries} />
+                                </Charts>
+                            </ChartRow>
+                        </ChartContainer>
+                    </Resizable>
+            )
+        } else {
+            return (
+                <div>Still Loading Events...</div>
+            )
+        }
+        
+    }
+
+
     render() {
         
         return (
@@ -221,6 +374,49 @@ class CourseScoring extends Component {
                         </ChartRow>
                     </ChartContainer>
                 </Resizable>
+                /api/BasketItems - {this.state.authenticationStatus}
+                <Resizable>
+                    <ChartContainer
+                        timeRange={this.state.timerange}
+                        enablePanZoom={false}
+                        onTimeRangeChanged={ (date) => this.handleTimeRangeChange(date)}
+                    >
+                        <ChartRow height="15">
+                            <Charts>
+                                <EventChart
+                                    series={this.state.series}
+                                    size={30}
+                                    style={this.apiBasketOutageEventStyleFunc}
+                                    // label={e => e.get("title")}
+                                />
+                            </Charts>
+                        </ChartRow>
+                    </ChartContainer>
+                </Resizable>
+                /rest/basket/basket_id/checkout - {this.state.authenticationStatus}
+                <Resizable>
+                    <ChartContainer
+                        timeRange={this.state.timerange}
+                        enablePanZoom={false}
+                        onTimeRangeChanged={ (date) => this.handleTimeRangeChange(date)}
+                    >
+                        <ChartRow height="15">
+                            <Charts>
+                                <EventChart
+                                    series={this.state.series}
+                                    size={30}
+                                    style={this.apiBasketOutageEventStyleFunc}
+                                    // label={e => e.get("title")}
+                                />
+                            </Charts>
+                        </ChartRow>
+                    </ChartContainer>
+                </Resizable>
+                <h2>Users Status</h2>
+                Registered
+                Online
+                {this.renderLineChartLegend()}
+                {this.renderLineChart()}
                 <h3>Scoring Requirements</h3>
                 <ul>
                     <li>Service (online ; frontend/backend)</li>
