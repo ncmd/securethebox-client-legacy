@@ -228,12 +228,12 @@ class Course extends Component {
                 content={
                     course && (
                         <div className="flex flex-1 relative overflow-hidden">
-                            <FuseScrollbars>
+                            <FuseScrollbars >
                             {/* <FuseScrollbars className="w-full overflow-auto"> */}
                                 <SwipeableViews
                                     className="overflow-hidden"
                                     index={activeStep - 1}
-                                    enableMouseEvents={true}
+                                    enableMouseEvents={false}
                                     onChangeIndex={this.handleChangeActiveStep}
                                 >
                                     {course.steps.map((step, index) => {
@@ -247,7 +247,7 @@ class Course extends Component {
                                                 <CourseStart key={step.id}/>
                                             )
                                         }
-                                        if (index === 4) {
+                                        if (index === 0) {
                                             return (
                                                 <CourseResources key={step.id}/>
                                             )
@@ -257,7 +257,7 @@ class Course extends Component {
                                                 <CourseSubmission key={step.id}/>
                                             )
                                         }
-                                        if (index === 0) {
+                                        if (index === 6) {
                                             return (
                                                 <CourseScoring key={step.id}/>
                                             )

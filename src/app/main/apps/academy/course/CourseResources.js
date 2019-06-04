@@ -16,6 +16,9 @@ import OpenButton from '@material-ui/icons/OpenInNew';
 import OnlineStatus from '@material-ui/icons/CheckCircle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+
 
 const styles = theme => ({
     stepLabel: {
@@ -27,6 +30,7 @@ const styles = theme => ({
     }
 });
 
+
 class CourseResources extends Component {
 
     constructor(props) {
@@ -35,13 +39,14 @@ class CourseResources extends Component {
             validUsername: false,
             username: '',
             rows: [
-                { id: 1, name: 'splunk', description: 'Security Incident Event Management', status: false, url: 'http://splunk-userName.us-west1-a.securethebox.us:8000' },
+                { id: 1, name: 'splunk', credsUser: "admin", credsPass: "changeme", references:[{title:'Splunk Cheat Sheet',url:'https://lzone.de/cheat-sheet/Splunk'}], tipData: [{image:'', detail:'source="/var/log/challenge1/nginx-charles.log"'}, {image:'', detail:'source="/var/log/challenge1/modsecurity-charles.log"'}], description: 'Security Incident Event Management', status: false, url: 'http://splunk-charles.us-west1-a.securethebox.us:8000/en-US/app/search/search', },
                 { id: 2, name: 'nginx-modsecurity', description: 'Web Application Firewall + Vulnerable Application', status: false, url: 'http://nginx-modsecurity-userName.us-west1-a.securethebox.us' },
                 { id: 3, name: 'nginx-modsecurity-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'http://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us' },
                 { id: 4, name: 'juice-shop', description: 'Vulnerable  Application', status: false, url: 'http://juice-shop-userName.us-west1-a.securethebox.us' },
                 { id: 5, name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
                 { id: 6, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
                 { id: 7, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { id: 8, name: 'kolide-osquery', description: 'Query Endpoints for information', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
             ]
         };
     }
@@ -63,14 +68,11 @@ class CourseResources extends Component {
             this.setState({
                 rows: prevRows
             })
-            // setInterval(this.getAllResourceStatus(), 100);
-            // this.getAllResourceStatus()
-            // console.log(this.props.course)
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-    
+
         if (this.props.course && this.props.course.activeStep === 5) {
             // this.props.updateCourse({ activeStep: 4 });
             // this.getAllResourceStatus()
@@ -79,9 +81,7 @@ class CourseResources extends Component {
 
 
     getResourceStatusNew = async (serviceName, userName) => {
-        // let data = { serviceName: serviceName, userName: userName }
         let resourceStatus = await axios.get('http://' + serviceName + '&userName=' + userName)
-        // let { data } = await resourceStatus['data']
         console.log(await resourceStatus['data'])
         let newData = await resourceStatus['data']
         var prevRows = this.state.rows
@@ -101,12 +101,12 @@ class CourseResources extends Component {
     }
 
 
-    getAllResourceStatus(){
+    getAllResourceStatus() {
         this.state.rows.map((row, index) => {
             if (row.name === "splunk" || row.name === "splunk-universal-forwarder" || row.name === "nginx-modsecurity" || row.name === "juice-shop") {
-                let getstate = this.getResourceStatus(row.name,this.props.user['data'].displayName)
-                if (getstate === false){
-                    this.getAllResourceStatus()        
+                let getstate = this.getResourceStatus(row.name, this.props.user['data'].displayName)
+                if (getstate === false) {
+                    this.getAllResourceStatus()
                 }
             }
             return null
@@ -156,12 +156,131 @@ class CourseResources extends Component {
         } else {
             return (
                 <TableCell align="center" padding="dense">
-                   <IconButton color="secondary" >
+                    <IconButton color="secondary" >
                         <OnlineStatus />
                     </IconButton>
                 </TableCell>
             )
         }
+    }
+
+    renderCredentials(user, password) {
+        return (
+            <div>
+                <h2>Credentials:</h2>
+                <ul>
+                    <li>Username: {user}<br /></li>
+                    <li>Password: {password}</li>
+                </ul>
+            </div>
+        )
+    }
+
+    renderReferences(referenceData){
+        return (
+            <div>
+                <h2>References:</h2>
+                <ul>
+                {
+                    referenceData.references.map((value,index) => {
+                        return (
+                            <li key={index}>
+                                {value.title}: <a href={value.url} target="_blank" >{value.url}</a>
+                            </li>
+                        )
+                    })
+                }
+                </ul>
+                
+            </div>   
+        )
+    }
+
+    renderTips(tipData) {
+        return (
+            <div>
+                <h2>Tips:</h2>
+                <ul>
+                {
+                    tipData.tipData.map((value,index) => {
+                        return (
+                            <li key={index}>
+                                {value.detail}
+                            </li>
+                        )
+                    })
+                }
+                </ul>
+                
+            </div>   
+        )
+    }
+
+
+    renderReactTable() {
+        return (
+            <ReactTable
+                data={this.state.rows}
+                columns={[
+                    {
+                        Header: "Assets",
+                        columns: [
+                            {
+                                Header: "Status",
+                                accessor: "status",
+                                maxWidth: 70,
+                                Cell: row => (
+                                    <span>
+                                        <span style={{
+                                            color: row.status === true ? '#ff2e00'
+                                                : row.status === false ? '#ffbf00'
+                                                    : '#57d500',
+                                            transition: 'all .3s ease'
+                                        }}>
+                                            &#x25cf;
+                                  </span> {
+                                            row.status === true ? 'Online'
+                                                : row.status === false ? 'Loading...'
+                                                    : 'Online'
+                                        }
+                                    </span>
+                                )
+                            },
+                            {
+                                Header: "Name",
+                                accessor: "name",
+                                maxWidth: 250,
+                            },
+                            {
+                                Header: "Description",
+                                accessor: "description"
+                            },
+                            {
+                                Header: "URL",
+                                accessor: "url",
+                                maxWidth: 60,
+                                Cell: row => (
+                                    <IconButton onClick={() => window.open(row.value, "_blank")} >
+                                        <OpenButton />
+                                    </IconButton>
+                                )
+
+                            }
+                        ]
+                    }
+                ]}
+                defaultPageSize={10}
+                className="-striped -highlight"
+                SubComponent={row =>
+                    <div style={{ padding: '10px' }}>
+                        {console.log(row.original)}
+                        {this.renderCredentials(row.original.credsUser, row.original.credsPass)}
+                        {this.renderReferences(row.original)}
+                        {this.renderTips(row.original)}
+                    </div>
+                }
+            />
+        )
     }
 
     render() {
@@ -171,34 +290,10 @@ class CourseResources extends Component {
                 <Paper className="w-full rounded-8 p-16 md:p-24" elevation={1}>
                     <h1>Resources</h1>
                     <br />
-                    <Table >
-                        <TableHead>
-                            <TableRow>
-                                <TableCell padding="dense">Name</TableCell>
-                                <TableCell align="left" padding="dense">Description</TableCell>
-                                <TableCell align="center" padding="dense">Status</TableCell>
-                                <TableCell align="center" padding="dense">URL</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.rows.map(row => (
-                                <TableRow key={row.id} >
-                                    <TableCell component="th" scope="row" padding="dense">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="left" padding="dense">{row.description}</TableCell>
-                                    
-                                    {this.renderStatus(row.name,row.status)}
-                                    <TableCell align="center" padding="dense">
-                                        <IconButton color="primary" href={row.url} target="_blank" aria-label="Open to new window">
-                                            <OpenButton />
-                                        </IconButton>
-                                    </TableCell>
-                                    
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    Expand the row for details containing Credentials and Tips of each resource.<br/>
+                    Click on URL icon button a new tab to Resource.
+                    <br />
+                    {this.renderReactTable()}
                 </Paper>
             </div>
 
@@ -206,7 +301,7 @@ class CourseResources extends Component {
     };
 }
 
-function mapStateToProps({ auth,academyApp }) {
+function mapStateToProps({ auth, academyApp }) {
     return {
         user: auth.user,
         course: academyApp.course
