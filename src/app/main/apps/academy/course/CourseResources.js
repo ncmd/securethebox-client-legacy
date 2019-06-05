@@ -39,10 +39,32 @@ class CourseResources extends Component {
             validUsername: false,
             username: '',
             rows: [
-                { id: 1, name: 'splunk', credsUser: "admin", credsPass: "changeme", references:[{title:'Splunk Cheat Sheet',url:'https://lzone.de/cheat-sheet/Splunk'}], tipData: [{image:'', detail:'source="/var/log/challenge1/nginx-charles.log"'}, {image:'', detail:'source="/var/log/challenge1/modsecurity-charles.log"'}], description: 'Security Incident Event Management', status: false, url: 'http://splunk-charles.us-west1-a.securethebox.us:8000/en-US/app/search/search', },
+                { id: 1, name: 'splunk', credsUser: "admin", credsPass: "changeme", 
+                references:[
+                    {title:'Splunk Cheat Sheet',url:'https://lzone.de/cheat-sheet/Splunk'}
+                ], 
+                tipData: [
+                    {image:'', detail:'source="/var/log/challenge1/nginx-charles.log"'}, 
+                    {image:'', detail:'source="/var/log/challenge1/modsecurity-charles.log"'},
+                    {image:'', detail:'Set time frame of search to REAL-TIME 1 hour window.'},
+                    {image:'', detail:'Adjust to Verbose Mode search'},
+                    {image:'', detail:'Consider the fields: status, http_method, uri_path, uri_query, http_user_agent, and http_referrer'},
+                ], description: 'Security Incident Event Management', status: false, url: 'http://splunk-charles.us-west1-a.securethebox.us:8000/en-US/app/search/search', },
                 { id: 2, name: 'nginx-modsecurity', description: 'Web Application Firewall + Vulnerable Application', status: false, url: 'http://nginx-modsecurity-userName.us-west1-a.securethebox.us' },
                 { id: 3, name: 'nginx-modsecurity-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'http://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 4, name: 'juice-shop', description: 'Vulnerable  Application', status: false, url: 'http://juice-shop-userName.us-west1-a.securethebox.us' },
+                { id: 4, name: 'juice-shop' , credsUser: "admin", credsPass: "changeme", 
+                references:[
+                    {title:'Juice-Shop Source Code Repository', url:'https://github.com/bkimminich/juice-shop'},
+                    {title:'About Juice-Shop',url:'https://www.owasp.org/index.php/OWASP_Juice_Shop_Project'},
+                    {title:'Juice-Shop Attack Solutions',url:'https://github.com/bkimminich/pwning-juice-shop/blob/master/appendix/solutions.md'}
+                ], 
+                tipData: [
+                    {image:'', detail:'Frontend/Client = Angular.js'},
+                    {image:'', detail:'Backend/Server = Node.js+Express'},
+                    {image:'', detail:'Authentication = SQL+JWT'},
+                    {image:'', detail:'Change default passwords'},
+                    {image:'', detail:'Patch code to prevent attacks'}
+                ], description: 'Vulnerable  Application', status: false, url: 'http://juice-shop-userName.us-west1-a.securethebox.us' },
                 { id: 5, name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
                 { id: 6, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
                 { id: 7, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
@@ -291,7 +313,7 @@ class CourseResources extends Component {
                     <h1>Resources</h1>
                     <br />
                     Expand the row for details containing Credentials and Tips of each resource.<br/>
-                    Click on URL icon button a new tab to Resource.
+                    Click on URL button to view Resource.
                     <br />
                     {this.renderReactTable()}
                 </Paper>
