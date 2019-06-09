@@ -56,7 +56,9 @@ class CourseResources extends Component {
                 references:[
                     {title:'Juice-Shop Source Code Repository', url:'https://github.com/bkimminich/juice-shop'},
                     {title:'About Juice-Shop',url:'https://www.owasp.org/index.php/OWASP_Juice_Shop_Project'},
-                    {title:'Juice-Shop Attack Solutions',url:'https://github.com/bkimminich/pwning-juice-shop/blob/master/appendix/solutions.md'}
+                    {title:'Juice-Shop Attack Solutions',url:'https://github.com/bkimminich/pwning-juice-shop/blob/master/appendix/solutions.md'},
+                    {title:'Juice-Shop Scoreboard', url:'http://juice-shop-charles.us-west1-a.securethebox.us/#/score-board'},
+                    {title:'RCE Bug',url:'https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/'}
                 ], 
                 tipData: [
                     {image:'', detail:'Frontend/Client = Angular.js'},
@@ -66,12 +68,19 @@ class CourseResources extends Component {
                     {image:'', detail:'Patch code to prevent attacks'}
                 ], description: 'Vulnerable  Application', status: false, url: 'http://juice-shop-userName.us-west1-a.securethebox.us' },
                 { id: 5, name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 6, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
-                { id: 7, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 8, name: 'kolide-osquery', description: 'Query Endpoints for information', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { id: 6, name: 'hashicorp-vault', 
+                references: [
+                    {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'}
+                ],description: 'Public Key Infrastructure Management', status: false, url: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { id: 7, name: 'gitlab', description: 'Private source code respository', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
+                { id: 7, name: 'jenkins', description: 'Continuous Integration & Continuous Deployment Server', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
+                { id: 7, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
+                { id: 8, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
+                { id: 9, name: 'kolide-osquery', description: 'Query Endpoints for information', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' }
             ]
         };
     }
+    // https://www.vaultproject.io/docs/secrets/pki/index.html
 
     componentDidMount() {
 

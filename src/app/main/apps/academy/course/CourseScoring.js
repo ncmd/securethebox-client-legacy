@@ -615,10 +615,26 @@ class CourseScoring extends Component {
                     <li>SSL</li>
                     <li>TLS</li>
                     <li>PKI</li>
+                    <ul>
+                        <li>CA</li>
+                        <li>RA</li>
+                        <li>HSM - https://cloud.google.com/hsm/</li>
+                        <ul>
+                            <li>Key Ring</li>
+                            <li>Key</li>
+                            <li>Encrypt data with key</li>
+                            <li>Decrypt data with key</li>
+                        </ul>
+                    </ul>
                     <li>Practical Encryption</li>
                     <ul>
-                        <li>HSM</li>
                         <li>Bcrypt</li>
+                        <ul>
+                            <li>Password</li>
+                            <li>SHA512 has of Password</li>
+                            <li>Bcrypt 10 rounds + Salt</li>
+                            <li>AES256 + Pepper</li>
+                        </ul>
                     </ul>
                     <li>OWASP TOP 10</li>
                         <ul>
@@ -631,7 +647,10 @@ class CourseScoring extends Component {
                                 <li>Use LIMIT within SQL queries</li>
                                 <li>In order to prevent, must edit the /routes/login.js file - https://snyk.io/blog/sql-injection-orm-vulnerabilities/</li>
                                 <li>https://medium.com/@tkssharma/node-js-with-sequelize-orm-tutorials-9cf8235de9ab</li>
-                                <li>Answer: </li>
+                                <li>Editing Juice-Shop Code Answer: Edit the <b>/routes/login.js</b></li>
+                                <code>
+                                    {"models.sequelize.query('SELECT * FROM Users WHERE email = ? AND password = \'' + insecurity.hash(req.body.password || '') + '\'', { model: models.User, plain: true, logging: console.log, replacements: [req.body.email], type: models.sequelize.QueryTypes.SELECT })"}
+                                </code>
                                 {/* Line 49? - models.sequelize.query('SELECT * FROM Users WHERE email = ? AND password = \'' + insecurity.hash(req.body.password || '') + '\'', { model: models.User, plain: true, logging: console.log, replacements: [req.body.email], type: models.sequelize.QueryTypes.SELECT }) */}
                             </ul>
                             <li>BROKEN AUTHENTICATION</li>
@@ -643,6 +662,8 @@ class CourseScoring extends Component {
                             </ul>
                             <li>XSS</li>
                             <ul>
+                                <li>Editing Nginx Code Answer: </li>
+                                <li>Editing ModSecurity Code Answer: </li>
                                 <li>'http-only' and 'secure' flag added to cookie/session in nginx by using proxy_cookie_path - https://geekflare.com/httponly-secure-cookie-nginx/</li>
                                 <li>Content Security Policy</li>
                                 <ul>
