@@ -72,8 +72,8 @@ class CourseResources extends Component {
                 references: [
                     {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'}
                 ],description: 'Public Key Infrastructure Management', status: false, url: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 7, name: 'gitlab', description: 'Private source code respository', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
-                { id: 7, name: 'jenkins', description: 'Continuous Integration & Continuous Deployment Server', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
+                { id: 7, name: 'gitlab', description: 'Private source code respository', status: false, url: 'http://gitlab-userName.us-west1-a.securethebox.us' },
+                { id: 7, name: 'jenkins', description: 'Continuous Integration & Continuous Deployment Server', status: false, url: 'http://jenkins-userName.us-west1-a.securethebox.us' },
                 { id: 7, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
                 { id: 8, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
                 { id: 9, name: 'kolide-osquery', description: 'Query Endpoints for information', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' }
