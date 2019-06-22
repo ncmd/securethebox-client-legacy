@@ -613,9 +613,13 @@ class CourseScoring extends Component {
                 <h2>General Knowledge</h2>
                 <ul>
                     <li>SSL</li>
+                    <ul>
+                        <li>Hashicorp Vault Secrets</li>
+                    </ul>
                     <li>TLS</li>
                     <li>PKI</li>
                     <ul>
+                        <li>Hashicorp Vault Secrets</li>
                         <li>CA</li>
                         <li>RA</li>
                         <li>HSM - https://cloud.google.com/hsm/</li>
@@ -709,6 +713,13 @@ class CourseScoring extends Component {
                 <h1>Scoring</h1>
                 <h2>Application Security</h2>
                 <ul>
+                    <li>Penetration Testing</li>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
                     <li>SDLC</li>
                     <li>Bug Bounty</li>
                     <li>OWASP TOP 10</li>
@@ -788,7 +799,6 @@ class CourseScoring extends Component {
                     <li>Privacy Violation 25%</li>
                     - number of pii records discovered<br/>
                     - sensitive information exposed<br/>
-                    - 
                 </ul>
                 </Paper>
             </div>

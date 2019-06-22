@@ -115,8 +115,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[ids-ips] - suricata",
                   "type": "node",
-                  "x": 99,
-                  "y": 19
+                  "x": 140,
+                  "y": 23
                 },
                 {
                   "id": "e9481d69-bf57-40ff-9c8b-3846b7d05031",
@@ -175,8 +175,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[endpoint] - wazuh-agent",
                   "type": "node",
-                  "x": 99,
-                  "y": 31
+                  "x": 139,
+                  "y": 37
                 },
                 {
                   "id": "8b7b9de0-c32c-485b-9893-7486e2a17e65",
@@ -186,7 +186,7 @@ class CourseScenario extends Component {
                   "name": "[endpoint mgmt] - wazuh-manager",
                   "type": "node",
                   "x": 97,
-                  "y": 86
+                  "y": 89
                 },
                 {
                   "id": "95230a03-0940-4e94-a31b-d2712e0b27f1",
@@ -205,8 +205,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[ci/cd] - jenkins",
                   "type": "node",
-                  "x": 60,
-                  "y": 59
+                  "x": 76,
+                  "y": 60
                 },
                 {
                   "id": "d39aa8c7-d0a5-42f3-809e-91e364c71304",
@@ -215,8 +215,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[pki/secrets] - hashicorp-vault",
                   "type": "node",
-                  "x": 60,
-                  "y": 69
+                  "x": 48,
+                  "y": 51
                 },
                 {
                   "id": "63b6d18b-26cf-463d-9a72-7c32953c82b6",
@@ -225,8 +225,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[git repo] - gitlab",
                   "type": "node",
-                  "x": 60,
-                  "y": 79
+                  "x": 48,
+                  "y": 72
                 },
                 {
                   "id": "b78aa3ae-3b3d-4254-a82a-8b21a3a62638",
@@ -245,8 +245,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[backend] - nodejs/express.js",
                   "type": "node",
-                  "x": 140,
-                  "y": 21
+                  "x": 178,
+                  "y": 10
                 },
                 {
                   "id": "c666436a-628d-4829-928c-d643b20b2ae9",
@@ -255,8 +255,8 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[database] - sqlite",
                   "type": "node",
-                  "x": 140,
-                  "y": 32
+                  "x": 210,
+                  "y": 10
                 },
                 {
                   "id": "7813474c-4278-4d99-a655-419213d63196",
@@ -265,7 +265,7 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[siem] - splunk",
                   "type": "node",
-                  "x": 60,
+                  "x": 48,
                   "y": 106
                 }
               ],
@@ -473,6 +473,46 @@ class CourseScenario extends Component {
                 {
                   "source": "[waf-loadbalancer] - nginx-modsecurity",
                   "target": "[app] - juice-shop",
+                  "capacity": ""
+                },
+                {
+                  "source": "[ci/cd] - jenkins",
+                  "target": "[pki/secrets] - hashicorp-vault",
+                  "capacity": ""
+                },
+                {
+                  "source": "[git repo] - gitlab",
+                  "target": "[ci/cd] - jenkins",
+                  "capacity": ""
+                },
+                {
+                  "source": "[defender]",
+                  "target": "[git repo] - gitlab",
+                  "capacity": ""
+                },
+                {
+                  "source": "[defender]",
+                  "target": "[ci/cd] - jenkins",
+                  "capacity": ""
+                },
+                {
+                  "source": "[ci/cd] - jenkins",
+                  "target": "[app] - juice-shop",
+                  "capacity": ""
+                },
+                {
+                  "source": "[app] - juice-shop",
+                  "target": "[ids-ips] - suricata",
+                  "capacity": ""
+                },
+                {
+                  "source": "[app] - juice-shop",
+                  "target": "[endpoint] - wazuh-agent",
+                  "capacity": ""
+                },
+                {
+                  "source": "[defender]",
+                  "target": "[pki/secrets] - hashicorp-vault",
                   "capacity": ""
                 }
               ]

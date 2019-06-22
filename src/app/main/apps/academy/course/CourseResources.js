@@ -13,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import OpenButton from '@material-ui/icons/OpenInNew';
+import ConsoleButton from '@material-ui/icons/Computer';
 import OnlineStatus from '@material-ui/icons/CheckCircle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
@@ -39,44 +40,176 @@ class CourseResources extends Component {
             validUsername: false,
             username: '',
             rows: [
-                { id: 1, name: 'splunk', credsUser: "admin", credsPass: "changeme", 
-                references:[
-                    {title:'Splunk Cheat Sheet',url:'https://lzone.de/cheat-sheet/Splunk'}
-                ], 
-                tipData: [
-                    {image:'', detail:'source="/var/log/challenge1/nginx-charles.log"'}, 
-                    {image:'', detail:'source="/var/log/challenge1/modsecurity-charles.log"'},
-                    {image:'', detail:'Set time frame of search to REAL-TIME 1 hour window.'},
-                    {image:'', detail:'Adjust to Verbose Mode search'},
-                    {image:'', detail:'Consider the fields: status, http_method, uri_path, uri_query, http_user_agent, and http_referrer'},
-                ], description: 'Security Incident Event Management', status: false, url: 'http://splunk-charles.us-west1-a.securethebox.us:8000/en-US/app/search/search', },
-                { id: 2, name: 'nginx-modsecurity', description: 'Web Application Firewall + Vulnerable Application', status: false, url: 'http://nginx-modsecurity-userName.us-west1-a.securethebox.us' },
-                { id: 3, name: 'nginx-modsecurity-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'http://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 4, name: 'juice-shop' , credsUser: "admin", credsPass: "changeme", 
-                references:[
-                    {title:'Juice-Shop Source Code Repository', url:'https://github.com/bkimminich/juice-shop'},
-                    {title:'About Juice-Shop',url:'https://www.owasp.org/index.php/OWASP_Juice_Shop_Project'},
-                    {title:'Juice-Shop Attack Solutions',url:'https://github.com/bkimminich/pwning-juice-shop/blob/master/appendix/solutions.md'},
-                    {title:'Juice-Shop Scoreboard', url:'http://juice-shop-charles.us-west1-a.securethebox.us/#/score-board'},
-                    {title:'RCE Bug',url:'https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/'}
-                ], 
-                tipData: [
-                    {image:'', detail:'Frontend/Client = Angular.js'},
-                    {image:'', detail:'Backend/Server = Node.js+Express'},
-                    {image:'', detail:'Authentication = SQL+JWT'},
-                    {image:'', detail:'Change default passwords'},
-                    {image:'', detail:'Patch code to prevent attacks'}
-                ], description: 'Vulnerable  Application', status: false, url: 'http://juice-shop-userName.us-west1-a.securethebox.us' },
-                { id: 5, name: 'juice-shop-cloudcmd', description: 'File manager, command-line console, text editor.', status: false, url: 'https://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 6, name: 'hashicorp-vault', 
-                references: [
-                    {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'}
-                ],description: 'Public Key Infrastructure Management', status: false, url: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 7, name: 'gitlab', description: 'Private source code respository', status: false, url: 'http://gitlab-userName.us-west1-a.securethebox.us' },
-                { id: 7, name: 'jenkins', description: 'Continuous Integration & Continuous Deployment Server', status: false, url: 'http://jenkins-userName.us-west1-a.securethebox.us' },
-                { id: 7, name: 'wazuh-manager', description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', status: false, url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us' },
-                { id: 8, name: 'suricata-cloudcmd', description: 'IDS/IPS, File manager, command-line console, text editor.', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' },
-                { id: 9, name: 'kolide-osquery', description: 'Query Endpoints for information', status: false, url: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' }
+                { 
+                    id: 0, 
+                    name: 'juice-shop' , 
+                    credsUser: "admin@someemail.com", 
+                    credsPass: "admin123", 
+                    references:[
+                        {title:'Juice-Shop Source Code Repository', url:'https://github.com/bkimminich/juice-shop'},
+                        {title:'About Juice-Shop',url:'https://www.owasp.org/index.php/OWASP_Juice_Shop_Project'},
+                        {title:'Juice-Shop Attack Solutions',url:'https://github.com/bkimminich/pwning-juice-shop/blob/master/appendix/solutions.md'},
+                        {title:'Juice-Shop Scoreboard', url:'http://juice-shop-charles.us-west1-a.securethebox.us/#/score-board'},
+                        {title:'RCE Bug',url:'https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/'},
+                        {title:'Node-Vault node library',url:'https://github.com/kr1sp1n/node-vault'},
+                        {title:'CSurf node library',url:'https://github.com/expressjs/csurf'}
+                    ], 
+                    tipData: [
+                        {image:'', detail:'Frontend/Client = Angular.js'},
+                        {image:'', detail:'Backend/Server = Node.js+Express'},
+                        {image:'', detail:'Authentication = SQL+JWT'},
+                        {image:'', detail:'Change default passwords'},
+                        {image:'', detail:'Patch code in gitlab repository to fix vulnerabilities'},
+                        {image:'', detail:'Use Node-Vault library to request for secrets'},
+                        {image:'', detail:'Use CSurf middleware to add csrf token to requests'},
+                    ], 
+                    description: 'Main Application and most Valueable service. Keep this service up at all times apply your knowledge of security.', 
+                    status: false, 
+                    url: 'http://juice-shop-userName.us-west1-a.securethebox.us',
+                    shell: 'http://juice-shop-userName-cloudcmd.us-west1-a.securethebox.us'
+                },
+                { 
+                    id: 1, 
+                    name: 'splunk', 
+                    credsUser: "admin", 
+                    credsPass: "Changeme", 
+                    references:[
+                        {title:'Splunk Cheat Sheet',url:'https://lzone.de/cheat-sheet/Splunk'}
+                    ], 
+                    tipData: [
+                        {image:'', detail:'source="/var/log/challenge1/nginx-charles.log"'}, 
+                        {image:'', detail:'source="/var/log/challenge1/modsecurity-charles.log"'},
+                        {image:'', detail:'Set time frame of search to REAL-TIME 1 hour window.'},
+                        {image:'', detail:'Adjust to Verbose Mode search'},
+                        {image:'', detail:'Consider the fields: status, http_method, uri_path, uri_query, http_user_agent, and http_referrer'},
+                    ], 
+                    description: 'Security Incident Event Management', 
+                    status: false, 
+                    url: 'http://splunk-charles.us-west1-a.securethebox.us:8000/en-US/app/search/search',
+                    shell: 'http://splunk-userName-cloudcmd.us-west1-a.securethebox.us',
+                },
+                { 
+                    id: 2, 
+                    name: 'nginx-modsecurity',
+                    references:[
+                        {title:'Splunk Cheat Sheet',url:'https://lzone.de/cheat-sheet/Splunk'}
+                    ], 
+                    tipData: [
+                        {image:'', detail:'source="/var/log/challenge1/nginx-charles.log"'}, 
+                        {image:'', detail:'source="/var/log/challenge1/modsecurity-charles.log"'},
+                        {image:'', detail:'Set time frame of search to REAL-TIME 1 hour window.'},
+                        {image:'', detail:'Adjust to Verbose Mode search'},
+                        {image:'', detail:'Consider the fields: status, http_method, uri_path, uri_query, http_user_agent, and http_referrer'},
+                    ],
+                    description: 'Load Balancer + Web Application Firewall', 
+                    status: false, 
+                    url: 'http://nginx-modsecurity-userName.us-west1-a.securethebox.us',
+                    shell: 'http://nginx-modsecurity-userName-cloudcmd.us-west1-a.securethebox.us'
+                },
+                { 
+                    id: 4, 
+                    name: 'hashicorp-vault',
+                    credsUser: "root", 
+                    credsPass: "root", 
+                    references: [
+                        {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'},
+                        {title:'Vault Hardening', url:'https://learn.hashicorp.com/vault/day-one/production-hardening'},
+                        {title:'Node-Vault node library', url:'https://github.com/kr1sp1n/node-vault'},
+                        {title:'Adopting Vault', url:'https://www.hashicorp.com/resources/adopting-hashicorp-vault'},
+                    ],
+                    tipData: [
+                        {image:'', detail:'Use Jenkins to Create Secrets'},
+                        {image:'', detail:'Use Node-Vault to get Secrets'},
+                        {image:'', detail:'Create policies for read/write'}
+                    ], 
+                    description: 'Public Key Infrastructure Management', 
+                    status: false, 
+                    url: 'http://hashicorp-vault-userName.us-west1-a.securethebox.us',
+                    shell: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us', 
+                },
+                { 
+                    id: 5, 
+                    name: 'hashicorp-consul',
+                    credsUser: "no authenticaition", 
+                    credsPass: "", 
+                    references: [
+                        {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'},
+                        {title:'Vault Hardening', url:'https://learn.hashicorp.com/vault/day-one/production-hardening'},
+                        {title:'Node-Vault node library', url:'https://github.com/kr1sp1n/node-vault'},
+                        {title:'Adopting Vault', url:'https://www.hashicorp.com/resources/adopting-hashicorp-vault'},
+                    ],
+                    tipData: [
+                        {image:'', detail:'Use Jenkins to Create Secrets'},
+                        {image:'', detail:'Use Node-Vault to get Secrets'},
+                        {image:'', detail:'Create policies for read/write'}
+                    ], 
+                    description: 'Vault Persistant Key-Value Store', 
+                    status: false, 
+                    url: 'http://hashicorp-vault-userName.us-west1-a.securethebox.us',
+                    shell: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us', 
+                },
+                { 
+                    id: 6, 
+                    name: 'gitlab',
+                    credsUser: "root", 
+                    credsPass: "Changeme", 
+                    references: [
+                        {title:'Gitlab Git Cheatsheet', url:'https://about.gitlab.com/images/press/git-cheat-sheet.pdf'},
+                    ],
+                    tipData: [
+                        {image:'', detail:'You can edit code directly from the Repository'},
+                        {image:'', detail:'Use Node-Vault to get Secrets'},
+                        {image:'', detail:'Create policies for read/write'}
+                    ], 
+                    description: 'Source Code Respository',
+                    status: false, 
+                    url: 'http://gitlab-userName.us-west1-a.securethebox.us',
+                    shell: 'http://gitlab-userName-cloudcmd.us-west1-a.securethebox.us',
+                },
+                { 
+                    id: 7, 
+                    name: 'jenkins',
+                    credsUser: "no authentication", 
+                    credsPass: "", 
+                    references: [
+                        {title:'Jenkins Cheatsheet', url:'https://www.edureka.co/blog/cheatsheets/jenkins-cheat-sheet/'},
+                    ],
+                    tipData: [
+                        {image:'', detail:'When a changes happens in github project, jenkins run "git pull" command on juice-shop docker container to update changes to app'},
+                        {image:'', detail:'Update and Replace Credentials'},
+                        {image:'', detail:'Edit the "deploy-to-kubernetes" job'},
+                        {image:'', detail:'Run "Setup Security" to add authentication '},
+                        {image:'', detail:'You do not need to "build" a docker image or "deploy" (takes too much cpu sorry...)'}
+                    ], 
+                    description: 'Continuous Integration & Continuous Deployment Server', 
+                    status: false, 
+                    url: 'http://jenkins-userName.us-west1-a.securethebox.us',
+                    shell: 'http://jenkins-userName-cloudcmd.us-west1-a.securethebox.us',
+                },
+                { 
+                    id: 8, 
+                    name: 'wazuh-manager [UNAVAILABLE]', 
+                    description: 'Manager of Wazuh Agent, Endpoint Protection (OSSEC)', 
+                    status: false, 
+                    url: 'http://wazuh-manager-userName.us-west1-a.securethebox.us',
+                    shell: 'http://wazuh-manager-userName-cloudcmd.us-west1-a.securethebox.us' 
+                },
+                { 
+                    id: 9, 
+                    name: 'suricata [UNAVAILABLE]', 
+                    description: 'IDS/IPS, File manager, command-line console, text editor.', 
+                    status: false, 
+                    url: 'http://suricata-userName.us-west1-a.securethebox.us',
+                    shell: 'http://suricata-userName-cloudcmd.us-west1-a.securethebox.us' 
+                },
+                { 
+                    id: 10, 
+                    name: 'kolide-osquery [UNAVAILABLE]', 
+                    description: 'Query Endpoints for information', 
+                    status: false, 
+                    url: 'http://kolide-osquery-userName.us-west1-a.securethebox.us',
+                    shell: 'http://kolide-osquery-userName-cloudcmd.us-west1-a.securethebox.us' 
+                }
             ]
         };
     }
@@ -90,10 +223,13 @@ class CourseResources extends Component {
 
             this.state.rows.map((row, index) => {
                 const oldURL = prevRows[index].url
+                const oldShellURL = prevRows[index].shell
                 console.log(String(oldURL))
                 const newURL = String(oldURL).replace("userName", this.props.user['data'].displayName);
+                const newShellURL = String(oldShellURL).replace("userName", this.props.user['data'].displayName);
                 console.log(String(newURL))
                 prevRows[index].url = newURL
+                prevRows[index].shell = newShellURL
                 return null
             })
             this.setState({
@@ -285,6 +421,17 @@ class CourseResources extends Component {
                             {
                                 Header: "Description",
                                 accessor: "description"
+                            },
+                            {
+                                Header: "SHELL",
+                                accessor: "shell",
+                                maxWidth: 90,
+                                Cell: row => (
+                                    <IconButton onClick={() => window.open(row.value, "_blank")} >
+                                        <ConsoleButton />
+                                    </IconButton>
+                                )
+
                             },
                             {
                                 Header: "URL",

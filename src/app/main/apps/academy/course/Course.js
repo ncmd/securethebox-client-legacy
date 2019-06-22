@@ -22,6 +22,7 @@ import CourseStart from './CourseStart';
 import CourseResources from './CourseResources';
 import CourseScenario from './CourseScenario';
 import CourseScoring from './CourseScoring';
+import CourseGradingCriteria from './CourseGradingCriteria';
 
 const styles = theme => ({
     stepLabel: {
@@ -237,6 +238,11 @@ class Course extends Component {
                                     onChangeIndex={this.handleChangeActiveStep}
                                 >
                                     {course.steps.map((step, index) => {
+                                        if (index === 1) {
+                                            return (
+                                                <CourseGradingCriteria key={step.id}/>
+                                            )
+                                        }
                                         if (index === 2) {
                                             return (
                                                 <CourseScenario key={step.id}/>
