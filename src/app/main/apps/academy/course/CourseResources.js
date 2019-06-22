@@ -109,8 +109,8 @@ class CourseResources extends Component {
                 { 
                     id: 4, 
                     name: 'hashicorp-vault',
-                    credsUser: "root", 
-                    credsPass: "root", 
+                    credsUser: "root_token:", 
+                    credsPass: "keys:", 
                     references: [
                         {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'},
                         {title:'Vault Hardening', url:'https://learn.hashicorp.com/vault/day-one/production-hardening'},
@@ -122,7 +122,7 @@ class CourseResources extends Component {
                         {image:'', detail:'Use Node-Vault to get Secrets'},
                         {image:'', detail:'Create policies for read/write'}
                     ], 
-                    description: 'Public Key Infrastructure Management', 
+                    description: 'Secrets and Public Key Infrastructure Management', 
                     status: false, 
                     url: 'http://hashicorp-vault-userName.us-west1-a.securethebox.us',
                     shell: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us', 
@@ -130,7 +130,7 @@ class CourseResources extends Component {
                 { 
                     id: 5, 
                     name: 'hashicorp-consul',
-                    credsUser: "no authenticaition", 
+                    credsUser: "no authentication", 
                     credsPass: "", 
                     references: [
                         {title:'Setting up PKI with Hashicorp Vault', url:'https://www.vaultproject.io/docs/secrets/pki/index.html'},
@@ -143,7 +143,7 @@ class CourseResources extends Component {
                         {image:'', detail:'Use Node-Vault to get Secrets'},
                         {image:'', detail:'Create policies for read/write'}
                     ], 
-                    description: 'Vault Persistant Key-Value Store', 
+                    description: 'Persistant Key-Value Store', 
                     status: false, 
                     url: 'http://hashicorp-vault-userName.us-west1-a.securethebox.us',
                     shell: 'http://hashicorp-vault-userName-cloudcmd.us-west1-a.securethebox.us', 
