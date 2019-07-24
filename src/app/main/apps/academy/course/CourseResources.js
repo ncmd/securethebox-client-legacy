@@ -62,6 +62,7 @@ class CourseResources extends Component {
                         {image:'', detail:'Patch code in gitlab repository to fix vulnerabilities'},
                         {image:'', detail:'Use Node-Vault library to request for secrets'},
                         {image:'', detail:'Use CSurf middleware to add csrf token to requests'},
+                        {image:'', detail:'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Content_Security_Policy_Cheat_Sheet.md'},
                     ], 
                     description: 'Main Application and most Valueable service. Keep this service up at all times apply your knowledge of security.', 
                     status: false, 
@@ -155,6 +156,7 @@ class CourseResources extends Component {
                     credsPass: "Changeme", 
                     references: [
                         {title:'Gitlab Git Cheatsheet', url:'https://about.gitlab.com/images/press/git-cheat-sheet.pdf'},
+                        {title:'Github Security Best Practices Cheat Sheet',url:'https://snyk.io/blog/ten-git-hub-security-best-practices/'}
                     ],
                     tipData: [
                         {image:'', detail:'You can edit code directly from the Repository'},

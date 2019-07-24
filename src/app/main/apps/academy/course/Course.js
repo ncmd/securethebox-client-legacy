@@ -253,7 +253,7 @@ class Course extends Component {
                                                 <CourseStart key={step.id}/>
                                             )
                                         }
-                                        if (index === 0) {
+                                        if (index === 4) {
                                             return (
                                                 <CourseResources key={step.id}/>
                                             )

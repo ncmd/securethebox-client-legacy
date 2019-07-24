@@ -28,9 +28,9 @@ const siteStyle = {
                 cursor: "pointer"}
     },
     label: {
-        normal: {fill: "#696969", stroke: "none", fontSize: 9},
-        selected: {fill: "#333", stroke: "none", fontSize: 11},
-        muted: {fill: "#696969", stroke: "none", fontSize: 8,
+        normal: {fill: "#696969", stroke: "none", fontSize: 20},
+        selected: {fill: "#333", stroke: "none", fontSize: 20},
+        muted: {fill: "#696969", stroke: "none", fontSize: 20,
                 opacity: 0.6}
     }
 };
@@ -45,17 +45,33 @@ const hubStyle = {
                 cursor: "pointer"}
     },
     label: {
-        normal: {fill: "#696969", stroke: "none", fontSize: 9},
-        selected: {fill: "#333",stroke: "none", fontSize: 11},
-        muted: {fill: "#696969", stroke: "none", fontSize: 8,
-        opacity: 0.6}
+        normal: {fill: "#696969", stroke: "none", fontSize: 20},
+        selected: {fill: "#333",stroke: "none", fontSize: 20},
+        muted: {fill: "#696969", stroke: "none", fontSize: 20, opacity: 0.6}
     }
+};
+
+const nodeStyle = {
+  node: {
+      normal: {fill: "#CBCBCB",stroke: "#BEBEBE",
+               cursor: "pointer"},
+      selected: {fill: "#37B6D3", stroke: "rgba(55, 182, 211, 0.22)",
+                 strokeWidth: 10, cursor: "pointer"},
+      muted: {fill: "#CBCBCB", stroke: "#BEBEBE", opacity: 0.6,
+              cursor: "pointer"}
+  },
+  label: {
+      normal: {fill: "#696969", stroke: "none", fontSize: 20},
+      selected: {fill: "#333",stroke: "none", fontSize: 20},
+      muted: {fill: "#696969", stroke: "none", fontSize: 20, opacity: 0.6}
+  }
 };
 
 // Mapping of node type to style
 const stylesMap = {
     hub: hubStyle,
-    esnet_site: siteStyle
+    esnet_site: siteStyle,
+    node: nodeStyle
 };
 
 class CourseScenario extends Component {
@@ -72,7 +88,7 @@ class CourseScenario extends Component {
                   "label_dy": null,
                   "label_position": "top",
                   "name": "[attacker] - kali",
-                  "type": "hub",
+                  "type": "node",
                   "x": 16,
                   "y": 10,
                   "id": "6ccdfc0b-cb53-4d41-a732-bd2c45915b01"
@@ -83,7 +99,7 @@ class CourseScenario extends Component {
                   "label_position": "top",
                   "name": "[defender]",
                   "site": 5,
-                  "type": "hub",
+                  "type": "node",
                   "x": 17,
                   "y": 59,
                   "id": "73f2ae11-0320-4024-bbbe-33b26a820412"
@@ -556,8 +572,9 @@ class CourseScenario extends Component {
                 }
             },
             nodeSizeMap:{
-                hub: 5.5,
-                esnet_site: 7
+                hub: 10,
+                esnet_site: 10,
+                node: 10,
             },
             nodeShapeMap:{
                 CERN: "square"
@@ -574,27 +591,29 @@ class CourseScenario extends Component {
 
     render() {
         return (
-            <div className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64">
-                <Paper className="w-full max-w-lg rounded-8 p-16 md:p-24" elevation={1}>
-                    <h1>Scenario</h1>
-                    <ul>
-                    <li>You receive alerts of an attack in progress against a web application from your SIEM (Splunk)</li>
-                    <li>The source of this alert if from the Web Application Firewall (Modsecurity)</li>
-                    <li>Detect and prevent the attacker from exfiltrating sensitive customer information!</li>
-                    <li>If you are not able to stop the attacker, identify artifacts to identify what information was taken.</li>
-                    </ul>
-                    <br />
-                    <TrafficMap width={980} height={400} margin={50}
-                        topology={this.state.topology}
-                        edgeColorMap={this.state.edgeColorMap}
-                        edgeDrawingMethod="bidirectionalArrow"
-                        edgeThinknessMap={this.state.edgeThinknessMap}
-                        edgeShapeMap={this.state.edgeShapeMap}
-                        nodeSizeMap={this.state.nodeSizeMap}
-                        nodeShapeMap={this.state.nodeShapeMap}
-                        stylesMap={stylesMap} />
-                </Paper>
-            </div>
+          <div className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64">
+            <Paper className="w-full rounded-8 p-16 md:p-24" elevation={1}>
+              <h1>Scenario</h1>
+              <ul>
+              <li>You receive alerts of an attack in progress against a web application from your SIEM (Splunk)</li>
+              <li>The source of this alert if from the Web Application Firewall (Modsecurity)</li>
+              <li>Detect and prevent the attacker from exfiltrating sensitive customer information!</li>
+              <li>If you are not able to stop the attacker, identify artifacts to identify what information was taken.</li>
+              <li>How to confirm that they are on the same subnet /24?</li>
+              <li>What are the first things you do in this situation?</li>
+              </ul>
+              <br />
+              <TrafficMap width={980} height={400} margin={50}
+                  topology={this.state.topology}
+                  edgeColorMap={this.state.edgeColorMap}
+                  edgeDrawingMethod="bidirectionalArrow"
+                  edgeThinknessMap={this.state.edgeThinknessMap}
+                  edgeShapeMap={this.state.edgeShapeMap}
+                  nodeSizeMap={this.state.nodeSizeMap}
+                  nodeShapeMap={this.state.nodeShapeMap}
+                  stylesMap={stylesMap} />
+            </Paper>
+          </div>
         )
     };
 }

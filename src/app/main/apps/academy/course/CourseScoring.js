@@ -610,7 +610,41 @@ class CourseScoring extends Component {
                 {this.renderLineChart()}
             Depends in which team, Prod sec vs Corp sec, etc. 
             In general, know SSL / TLS, PKI, practical encryption, OWASP Top 10, strong Linux skills (including bash pipelines for text processing), strong scripting skills (e.g. Python), secure architecture. If a prod sec position add code auditing and some real SWE experience. If Corp sec add MDM, DLP, EDR, and infrastructure experience.
+            • 7+ years of hands-on experience in vulnerability management automation or operations.
+• A passion for developing systems and process dedicated to finding vulnerabilities and configuration errors and engineering them out of large scale systems.
+• Experience writing tools to automate tasks and integrate systems in Python or equivalent.
+• Understanding of current security issues and threats and risks that can manifest in larger scale complex systems.
+• Excellent knowledge of Linux/Mac internals, ACLs and OS/platform level security protection and common protocols.
+• Comfortable with automation and configuration management tools such as Ansible, Puppet, Drone, Terraform and experience with container-based approaches such as Docker/Kubernetes.
+• Knowledge of SSH, keystores, security certificates, user and password management, authentication and authorization, session management.
                 <h2>General Knowledge</h2>
+                <ul>
+                    <li>How to process large files containing 10000+ lines</li>
+                    <li>https://cryptobook.nakov.com</li>
+                    <li>HMAC and how is a MAC created</li>
+                    <li>Hash functions</li>
+                    <li>Key derivative function = BCRYPT, PBKDF2</li>
+                    <li>pbkdf2(password, salt, iterations-count, hash-function, derived-key-len)</li>
+                    <li>Why is BCRYPT Secure?</li>
+                    <li>Its use salt + many iterations + a lot of CPU + a lot of RAM memory</li>
+                    <li>It takes a lot of CPU time to derive the key (e.g. 0.2 sec) + a lot of RAM memory (e.g. 1GB). The calculation process is memory-dependent, so the memory access is the bottleneck of the calculations. Faster RAM access will speed-up the calculations.  When a lot of CPU and RAM is used to derive the key from given password, cracking passwords is slow and inefficient (e.g. 5-10 attempts / second), even when using very good password cracking hardware and software. The goal of the modern KDF functions is to make practically infeasible to perform a brute-force attack to reverse the password from its hash.</li>
+                    <li>SCRYPT more secure than BCRYPT</li>
+                    <li>is a strong cryptographic key-derivation function (KDF). It is memory-intensive, designed to prevent GPU, ASIC and FPGA attacks (highly efficient password cracking hardware).</li>
+                    <li>Use Cases for both</li>
+                    <li>ARGON2 - It has better password cracking resistance (when configured correctly) than PBKDF2, Bcrypt and Scrypt (for similar configuration parameters for CPU and RAM usage).</li>
+                    <li>How to Secure a password</li> 
+                    <li>Use Key-derivation functon - </li>
+                </ul>
+                <ul>
+                    <li>ENCRYPTION</li>
+                    <li>https://cryptobook.nakov.com/mac-and-key-derivation/exercises-password-encryption</li>
+                    <li>Crypto Libraries</li>
+                    <li>Cryptography in JavaScript - ECDSA, elliptic.js, js-sha3.js</li>
+                    <li>Cryptography libraries in Python - ECDSA, eth_keys</li>
+                    <li>C# and .NET cryptography - Bouncy Castle .NET, Nethereum</li>
+                    <li>Java cryptography - JCA, Bouncy Castle, Web3j</li>
+                    <li>C and C++ cryptography - Crypto++, OpenSSL bindings, Nettle, libgcrypt</li>
+                </ul>
                 <ul>
                     <li>SSL</li>
                     <ul>
@@ -759,6 +793,195 @@ class CourseScoring extends Component {
                 </ul>
                 <h2>Blue Team</h2>
                 <ul>
+                    <li>Incident Response</li>
+                    <h2>Interview</h2>
+                    <ul>
+                        <li>People who reported it</li>
+                        <li>IT staff on technical details</li>
+                        <li>Identify nature of incident</li>
+                        <li>Affected resources</li>
+                        <li>Was it Detected?</li>
+                        <li>Who accessed the systems since detection?</li>
+                        <li>Who is currently aware?</li>
+                        <li>Identify business events for a context</li>
+                        <li>Review Network and Security logs</li>
+                        <li>Document colleted sources</li>
+                    </ul>
+                    <h2>Investigate</h2>
+                    <ul>
+                        <h2>Leads – Relevant, Detailed, & Actionable</h2>
+                        <ul>
+                            <li>Detections manual or automated?</li>
+                            <li>What sources contributed to detection?</li>
+                            <li>Is the information validated/accurate?</li>
+                            <li>Is the source data preserved?</li>
+                            <li>How long has the detection sources been in operation?</li>
+                            <li>What is the detection error rates/false positives?</li>
+                            <li>Has anything related to the data sources changed?</li>
+                        </ul>
+                        <h2>Identify System Details:</h2>
+                        <ul>
+                            <li>Physical locations</li>
+                            <li>Asset tag number</li>
+                            <li>System make & model</li>
+                            <li>Operating System & version</li>
+                            <li>Primary function</li>
+                            <li>Responsible Administrator/user</li>
+                            <li>Assigned IP address</li>
+                            <li>Hostname & Domain</li>
+                            <li>Critical information on stored system</li>
+                            <li>Do backups exist?</li>
+                            <li>Is it connected to network (now)?</li>
+                            <li>List of malware detected, refer to log data</li>
+                            <li>List of remediation OPTIONS</li>
+                            <li>If data preserved, what process used? Where is it stored?</li>
+                        </ul>
+                        <h2>Identify Network Details:</h2>
+                        <ul>
+                            <li>Malicious IP address & domain nameserver</li>
+                            <li>Network monitoring conducted?</li>
+                            <li>Remediatation steps taken</li>
+                            <li>If data preserved, what process used? Where is it stored?</li>
+                            <li>Updates to network diagrams & configurations</li>
+                        </ul>
+                        <h2>Malware Details:</h2>
+                        <ul>
+                            <li>Date & Time of detection</li>
+                            <li>List of malware detected & systems that were infected</li>
+                            <li>Name, hash, & current directory of the malicious file</li>
+                            <li>Detection mechanism determined?</li>
+                            <li>Copy is preserved?</li>
+                            <li>Status of analysis</li>
+                            <li>Malware submitted to third parties?</li>
+                        </ul>
+                        <h2>Attack Timeline:</h2>
+                        <ul>
+                            <li>Date | Event Time | Host | Event Description | Data Source</li>
+                            <li>Indicators of Compromise – OpenIOC, CybOX, YARA</li>
+                            <li>Systems of Interest – Validate, Categorize, Prioritize</li>
+                            <li>Backdoor Installed, Accessed with Valid Creds, SQL Injection</li>
+                            <li>Preserve Evidence – Live Response, Memory Collection, Forensic Disk Image</li>
+                            <li>Analyze Data – Malware Analysis, Live Response Analysis, Forensic Examination</li>
+                        </ul>
+
+                    <h2>Remediation</h2>
+                        <h2>Posturing – take steps to ensure success of remediation</h2>
+                        <ul>
+                            <li>System, Application, Networking, & Central authentication logs</li>
+                            <li>Centralized Logging</li>
+                            <li>Enhance Alert rules</li>
+                            <li>Patch third-party applications</li>
+                            <li>Implement multifactor authentication to critical environments</li>
+                            <li>Reduce locations where critical data is stored</li>
+                            <li>Enhance security of native authentication</li>
+                            <li>Audit – account logon events, object access, privilege use, process tracking</li>
+                            <li>Strengthen password security requirements</li>
+                            <li>Remove LANMAN hashing</li>
+                            <li>Remove Service & OS fingerprinting functions</li>
+                            <li>Fix insecure code</li>
+                            <li>Fix application/policy flaw</li>
+                            <li>Implement host-based IDS to detect file system integrity changes</li>
+                            <li>Monitor critical system file access</li>
+                            <li>Redirect syslog data to Security Information Event Management (SIEM)</li>
+                            <li>Deploy updated patches on all systems</li>
+                            <li>Remove unnessary programs from all servers in DMZ</li>
+                        </ul>
+                    <h2>Tactical – taking approprite actions to incident</h2>
+                    <ul>
+                        <li>Immediate Actions – Stop incident from continuing</li>
+                        <li>Remove attacker's ability to access env, systems etc. (unplug)</li>
+                        <li>Disconnect DMZ from Internet</li>
+                        <li>Block outbound traffic to malicious domains</li>
+                        <li>Blacklist malicious IP addresses</li>
+                        <li>DNS blackhole</li>
+                        <li>Rebuild compromised systems (remove malicious files, run in jailed env.)</li>
+                        <li>Remove Root/Admin, manage user access</li>
+                        <li>Implement Web Application Firewall & IDS</li>
+                        <li>Verify successful implementation</li>
+                        <li>Remove attack vector</li>
+                        <li>Restore organization's trust in computer systems & user accounts</li>
+                    </ul>
+                    <ul>
+                        <li>Delayed Actions – conclude investigation before any direct actions</li>
+                        <li>Change all user account passwords</li>
+                        <li>Network Segmentation (DMZ, VLAN)</li>
+                        <li>Mitigation of original vulnerability</li>
+                        <li>Split tunneling disabled</li>
+                    </ul>
+                    <ul>
+                        <li>Combined Actions</li>
+                        <li>Strategic – long term improvements that require changes</li>
+                        <li>Verify all eradication of malicious incident activities</li>
+                        <li>Perform thorough code review</li>
+                        <li>Implement ACLs to restrict systems from communicating except ports required</li>
+                        <li>Implement IDS rules to monitor non-business traffic</li>
+                        <li>Implement SIEM for centralized logging in the DMZ</li>
+                        <li>Outsource security monitoring of DMZ to security services provider</li>
+                        <li>Disallow remote mgmt from internet to DMZ except multifactor Auth.</li>
+                    </ul>
+
+                    <h2>Tracking of Significant Investigative Information</h2>
+                    <ul>
+                        <li>List of Evidence collected</li>
+                        <li>Affected Systems</li>
+                        <li>Files of Interest</li>
+                        <li>Accessed & Stolen data</li>
+                        <li>Significant Attacker Activity</li>
+                        <li>Network based IOCs</li>
+                        <li>Host based IOCs</li>
+                        <li>Compromised Accounts</li>
+                        <li>Ongoing & requested tasks for teams</li>
+                    </ul>
+
+                    <h2>Reporting</h2>
+                    <ul>
+                        <li>Document Lessons learned</li>
+                        <li>Attack Lifecycle</li>
+                        <li>Remediation Planning Matrix</li>
+                    </ul>
+
+
+                    <h2>Incident Response Dept. Preparation Checklist</h2>
+                    <h2>Communication Mechanisms:</h2>
+                    <ul>
+                        <li>Contact Information for internal team members</li>
+                        <li>On-call information of other teams</li>
+                        <li>Incident reporting mechanisms</li>
+                        <li>System tracking incident information</li>
+                        <li>Encryption software/policies for securing communications among team members</li>
+                        <li>War room for communication and coordination</li>
+                        <li>Secure storage area for evidence and other sensitive materials</li>
+                    </ul>
+                    <h2>Communication Mechanisms:</h2>
+                    <ul>
+                        <li>Incident Analysis Hardware and Software:</li>
+                        <li>Digital forensic workstations, laptops, and other mobile devices for takes to analyze data,</li>
+                        sniffing packets, and writing reports
+                        <li>Black removable media</li>
+                        <li>Portable printer</li>
+                        <li>Packet sniffer and protocol analyzer equipment</li>
+                        <li>Digital forensic software</li>
+                        <li>Removeable media and trusted versions of programs</li>
+                        <li>Evidence gathering accessories</li>
+                    </ul>
+                    <ul>
+                        <li>Incident Analysis Resources:</li>
+                        <li>Commonly used port lists</li>
+                        <li>Documentation for operating systems, applications, protocols, and intrusion detection and</li>
+                        antivirus products
+                        <li>Network diagrams and lists of critical assets</li>
+                        <li>Current baselines of expected network, syste, and application activity</li>
+                        <li>Cryptographic hashes of critical files</li>
+                    </ul>
+                    <ul>
+                        <li>First Responder</li>
+                        <li>Incident Isolation</li>
+                        <li>Data Breach</li>
+                        <li>Damage and Loss Control</li>
+                    </ul>
+
+                </ul>
+                <ul>
                     <li>Monitoring</li>
                         <ul>
                             <li>Dashboards</li>
@@ -799,6 +1022,7 @@ class CourseScoring extends Component {
                     <li>Privacy Violation 25%</li>
                     - number of pii records discovered<br/>
                     - sensitive information exposed<br/>
+                </ul>
                 </ul>
                 </Paper>
             </div>

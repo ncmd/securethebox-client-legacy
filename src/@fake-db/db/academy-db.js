@@ -2,6 +2,13 @@ import mock from './../mock';
 import _ from '@lodash';
 import {amber, blue, blueGrey, green} from '@material-ui/core/colors';
 
+
+const challenge1Steps = [
+    {
+        'id'    : '0'
+    }
+]
+
 const demoSteps = [
     {
         'id'     : '0',
